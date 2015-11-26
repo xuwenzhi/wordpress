@@ -26,7 +26,7 @@ define('DB_NAME', 'xuwenzhi_wordpress');
 define('DB_USER', 'root');
 
 /** MySQL数据库密码 */
-define('DB_PASSWORD', 'qmnLOVExwz&521');
+define('DB_PASSWORD', 'xwzLoveqmn&701');
 
 /** MySQL主机 */
 define('DB_HOST', 'localhost');

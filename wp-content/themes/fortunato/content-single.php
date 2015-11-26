@@ -10,6 +10,7 @@
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 		<div class="sepHentry"><div class="entry-meta smallPart">
 			<?php fortunato_posted_on(); ?>
+			&nbsp;&nbsp;<?php if(function_exists('the_views')) { the_views(); }?>
 		</div></div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 

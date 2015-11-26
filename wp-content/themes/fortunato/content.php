@@ -9,10 +9,12 @@
 		<?php if ( 'post' == get_post_type() ) : ?>
 			<div class="entry-meta smallPart">
 				<?php fortunato_posted_on(); ?>
+				&nbsp;&nbsp;<?php if(function_exists('the_views')) { the_views(); } ?>
 			</div><!-- .entry-meta -->
 		<?php endif; ?>
-		<?php the_title( sprintf( '<h1 class="entry-title noMarginTop"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+		<?php the_title( sprintf( '<h1 class="entry-title noMarginTop"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' );  ?>
 	</header><!-- .entry-header -->
+
 	<div class="entry-summary">
 		<?php the_excerpt(); ?>
 	</div><!-- .entry-content -->

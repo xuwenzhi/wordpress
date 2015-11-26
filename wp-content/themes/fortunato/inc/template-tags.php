@@ -126,7 +126,6 @@ function fortunato_posted_on() {
 		comments_popup_link( esc_html__( 'Leave a comment', 'fortunato' ), esc_html__( '1 Comment', 'fortunato' ), esc_html__( '% Comments', 'fortunato' ) );
 		echo '</span>';
 	}
-	if(function_exists('the_views')) { echo "<span>&nbsp;"; the_views(); echo "</span>";}
 
 }
 endif;
