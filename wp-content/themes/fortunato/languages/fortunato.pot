@@ -1,0 +1,585 @@
+# Copyright (C) 2015 Automattic
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: _s 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tags/_s\n"
+"POT-Creation-Date: 2015-01-06 02:24:02+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: 404.php:15
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:19
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+
+#: 404.php:27
+#, php-format
+msgid "Try looking in the monthly archives. %1$s"
+msgstr ""
+
+#: archive.php:41 index.php:38 search.php:37
+msgid "<i class=\"fa fa-angle-double-left spaceRight\"></i>Previous"
+msgstr ""
+
+#: archive.php:42 index.php:39 search.php:38
+msgid "Next<i class=\"fa fa-angle-double-right spaceLeft\"></i>"
+msgstr ""
+
+#: archive.php:43 content-single.php:24 index.php:40 search.php:39
+msgid "Page"
+msgstr ""
+
+#: comments.php:27
+msgid "No comments"
+msgstr ""
+
+#: comments.php:27
+msgid "1 comment"
+msgstr ""
+
+#: comments.php:27
+#, php-format
+msgid "% comments"
+msgstr ""
+
+#: comments.php:36
+msgid "Reply"
+msgstr ""
+
+#: comments.php:49
+msgid "Comments are closed."
+msgstr ""
+
+#: comments.php:58
+msgid "Name *"
+msgstr ""
+
+#: comments.php:59
+msgid "Email *"
+msgstr ""
+
+#: comments.php:60
+msgid "Website *"
+msgstr ""
+
+#: comments.php:60
+msgid "Website"
+msgstr ""
+
+#: comments.php:62
+msgid " Required fields are marked "
+msgstr ""
+
+#: comments.php:66
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+
+#: comments.php:67
+#, php-format
+msgid ""
+"Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of "
+"this account\">Log out?</a>"
+msgstr ""
+
+#: comments.php:68
+msgid "Your email address will not be published."
+msgstr ""
+
+#: comments.php:69
+msgid "Leave a Reply"
+msgstr ""
+
+#: comments.php:70
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: comments.php:71
+msgid "Cancel reply"
+msgstr ""
+
+#: comments.php:72
+msgid "Post Comment"
+msgstr ""
+
+#: comments.php:73
+msgid "Comment *"
+msgstr ""
+
+#: comments.php:74
+#, php-format
+msgid ""
+"You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags "
+"and attributes: %s"
+msgstr ""
+
+#: content-none.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#: content-none.php:19
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: content-none.php:23
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: content-none.php:28
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: content-page.php:18 content-single.php:20
+msgid "Pages:"
+msgstr ""
+
+#: content-page.php:27 content.php:25 inc/template-tags.php:143
+msgid "Edit"
+msgstr ""
+
+#: content.php:23
+msgid "Read More"
+msgstr ""
+
+#: footer.php:15
+msgid "http://wordpress.org/"
+msgstr ""
+
+#: footer.php:15
+#, php-format
+msgid "Proudly powered by %s"
+msgstr ""
+
+#: footer.php:17
+#, php-format
+msgid "Theme: %1$s by %2$s."
+msgstr ""
+
+#: functions.php:54
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:84
+msgid "Sidebar"
+msgstr ""
+
+#: header.php:25
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:48
+msgid "Facebook"
+msgstr ""
+
+#: header.php:51
+msgid "Twitter"
+msgstr ""
+
+#: header.php:54
+msgid "Google Plus"
+msgstr ""
+
+#: header.php:57
+msgid "Linkedin"
+msgstr ""
+
+#: header.php:60
+msgid "Instagram"
+msgstr ""
+
+#: header.php:63
+msgid "YouTube"
+msgstr ""
+
+#: header.php:66
+msgid "Pinterest"
+msgstr ""
+
+#: header.php:69
+msgid "Tumblr"
+msgstr ""
+
+#: header.php:72
+msgid "VK"
+msgstr ""
+
+#: header.php:87
+msgid "Search for:"
+msgstr ""
+
+#: header.php:88
+msgid "Type here and hit enter..."
+msgstr ""
+
+#: header.php:91
+msgid "Close"
+msgstr ""
+
+#: header.php:110
+msgid "Main Menu"
+msgstr ""
+
+#: inc/customizer.php:37
+msgid "Demo PRO version"
+msgstr ""
+
+#: inc/customizer.php:38
+msgid "Get PRO Version"
+msgstr ""
+
+#: inc/extras.php:52
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:33
+msgid "Background Color"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:39
+msgid "Text Color"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:45
+msgid "Secondary Text Color"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:51
+msgid "Special Color"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:83
+msgid "Fortunato Theme Options"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:96
+msgid "Facebook URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:101
+msgid "Twitter URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:106
+msgid "Google Plus URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:111
+msgid "Linkedin URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:116
+msgid "Instagram URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:121
+msgid "YouTube URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:126
+msgid "Pinterest URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:131
+msgid "Tumblr URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:136
+msgid "VK URL"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:171
+msgid "Show Overlay on Header"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:189
+msgid "Show Search Button in Main Menu"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:203
+msgid "Get Fortunato PRO WP Theme for only"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:208
+msgid "Watch the demo"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:211
+msgid "Get Fortunato PRO Theme"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:215
+msgid "Advanced Theme Options"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:216
+msgid "Logo Upload"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:217
+msgid "Loading Page"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:218
+msgid "Font Switcher"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:219
+msgid "Unlimited Colors and Skin"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:220
+msgid "Choose header height (100% - 90% - 75% - 50%)"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:221
+msgid "Breadcrumb"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:222
+msgid "8 Shortcodes"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:223
+msgid "11 Exclusive Widgets"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:224
+msgid "Related Posts Box"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:225
+msgid "Information About Author Box"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:226
+msgid "Advertising System"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:227
+msgid "Custom image for 404 page and search page"
+msgstr ""
+
+#: inc/fortunato-dynamic.php:228
+msgid "And much more..."
+msgstr ""
+
+#: inc/fortunato-dynamic.php:234
+msgid "More features? Upgrade to PRO"
+msgstr ""
+
+#: inc/template-tags.php:19
+msgid "Comment navigation"
+msgstr ""
+
+#: inc/template-tags.php:22
+msgid "Older Comments"
+msgstr ""
+
+#: inc/template-tags.php:26
+msgid "Newer Comments"
+msgstr ""
+
+#: inc/template-tags.php:50
+msgid "Posts navigation"
+msgstr ""
+
+#: inc/template-tags.php:54
+msgid "Older posts"
+msgstr ""
+
+#: inc/template-tags.php:58
+msgid "Newer posts"
+msgstr ""
+
+#: inc/template-tags.php:83
+msgid "Post navigation"
+msgstr ""
+
+#: inc/template-tags.php:86 single.php:22
+msgid "Previous Post"
+msgstr ""
+
+#: inc/template-tags.php:86
+msgid "Previous post link"
+msgstr ""
+
+#: inc/template-tags.php:87 single.php:19
+msgid "Next Post"
+msgstr ""
+
+#: inc/template-tags.php:87
+msgid "Next Post link"
+msgstr ""
+
+#: inc/template-tags.php:113
+#, php-format
+msgctxt "post date"
+msgid "<i class=\"fa fa-clock-o spaceRight\"></i>%s"
+msgstr ""
+
+#: inc/template-tags.php:118
+#, php-format
+msgctxt "post author"
+msgid "<i class=\"fa fa-user spaceLeftRight\"></i>%s"
+msgstr ""
+
+#: inc/template-tags.php:126
+msgid "Leave a comment"
+msgstr ""
+
+#: inc/template-tags.php:126
+msgid "1 Comment"
+msgstr ""
+
+#: inc/template-tags.php:126
+msgid "% Comments"
+msgstr ""
+
+#: inc/template-tags.php:137
+msgid ", "
+msgstr ""
+
+#: inc/template-tags.php:139
+#, php-format
+msgid "<i class=\"fa fa-tags spaceRight\"></i>%1$s"
+msgstr ""
+
+#: inc/template-tags.php:152
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: inc/template-tags.php:171
+#, php-format
+msgid "Category: %s"
+msgstr ""
+
+#: inc/template-tags.php:173
+#, php-format
+msgid "Tag: %s"
+msgstr ""
+
+#: inc/template-tags.php:175
+#, php-format
+msgid "Author: %s"
+msgstr ""
+
+#: inc/template-tags.php:177
+#, php-format
+msgid "Year: %s"
+msgstr ""
+
+#: inc/template-tags.php:177
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr ""
+
+#: inc/template-tags.php:179
+#, php-format
+msgid "Month: %s"
+msgstr ""
+
+#: inc/template-tags.php:179
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr ""
+
+#: inc/template-tags.php:181
+#, php-format
+msgid "Day: %s"
+msgstr ""
+
+#: inc/template-tags.php:181
+msgctxt "daily archives date format"
+msgid "F j, Y"
+msgstr ""
+
+#: inc/template-tags.php:184
+msgctxt "post format archive title"
+msgid "Asides"
+msgstr ""
+
+#: inc/template-tags.php:186
+msgctxt "post format archive title"
+msgid "Galleries"
+msgstr ""
+
+#: inc/template-tags.php:188
+msgctxt "post format archive title"
+msgid "Images"
+msgstr ""
+
+#: inc/template-tags.php:190
+msgctxt "post format archive title"
+msgid "Videos"
+msgstr ""
+
+#: inc/template-tags.php:192
+msgctxt "post format archive title"
+msgid "Quotes"
+msgstr ""
+
+#: inc/template-tags.php:194
+msgctxt "post format archive title"
+msgid "Links"
+msgstr ""
+
+#: inc/template-tags.php:196
+msgctxt "post format archive title"
+msgid "Statuses"
+msgstr ""
+
+#: inc/template-tags.php:198
+msgctxt "post format archive title"
+msgid "Audio"
+msgstr ""
+
+#: inc/template-tags.php:200
+msgctxt "post format archive title"
+msgid "Chats"
+msgstr ""
+
+#: inc/template-tags.php:203
+#, php-format
+msgid "Archives: %s"
+msgstr ""
+
+#: inc/template-tags.php:207
+#, php-format
+msgid "%1$s: %2$s"
+msgstr ""
+
+#: inc/template-tags.php:209
+msgid "Archives"
+msgstr ""
+
+#: search.php:16
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: single.php:20
+msgid "Next post:"
+msgstr ""
+
+#: single.php:23
+msgid "Previous post:"
+msgstr ""
