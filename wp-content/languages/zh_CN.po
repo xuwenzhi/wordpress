@@ -1214,7 +1214,7 @@ msgstr "不要传递style标签给wp_add_inline_style()。"
 
 #: wp-includes/general-template.php:1208
 msgid "Category: %s"
-msgstr "分类：%s"
+msgstr "%s"
 
 #: wp-includes/general-template.php:1210
 msgid "Tag: %s"
