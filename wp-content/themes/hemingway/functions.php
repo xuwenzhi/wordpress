@@ -125,7 +125,9 @@ require_once (get_template_directory() . "/widgets/video-widget.php");
 
 
 // Set content-width
-if ( ! isset( $content_width ) ) $content_width = 676;
+if ( ! isset( $content_width ) ) $content_width = 67;
+
+
 
 
 // Add classes to next_posts_link and previous_posts_link
@@ -168,7 +170,7 @@ function hemingway_if_featured_image_class($classes) {
 add_filter( 'the_content_more_link', 'hemingway_custom_more_link', 10, 2 );
 
 function hemingway_custom_more_link( $more_link, $more_link_text ) {
-	return str_replace( $more_link_text, __('Continue reading', 'hemingway'), $more_link );
+	return str_replace( $more_link_text, __('READ MORE', 'hemingway'), $more_link );
 }
 
 
