@@ -173,6 +173,11 @@ function hemingway_custom_more_link( $more_link, $more_link_text ) {
 	return str_replace( $more_link_text, __('READ MORE', 'hemingway'), $more_link );
 }
 
+function chinese_excerpt($text, $lenth=100) {
+    $text = mb_substr($text,0, $lenth);
+    return $text;
+}
+add_filter('the_excerpt', ' chinese_excerpt ');
 
 // Style the admin area
 function hemingway_custom_colors() {
