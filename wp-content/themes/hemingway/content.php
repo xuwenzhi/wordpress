@@ -47,7 +47,7 @@
 			<?php _e('Sticky', 'hemingway'); ?>
 		
 		<?php } ?>
-		<?php if(function_exists(‘the_views’)) { the_views(); } ?>	
+		
 		<?php if ( current_user_can( 'manage_options' ) ) { ?>
 		
 			<span class="date-sep"> / </span>
@@ -56,8 +56,6 @@
 		
 		<?php } ?>
 								
-		<span class="date-sep"> / </span>
-		<?php if(function_exists('the_views')) { the_views(); } ?>	
 	</div>
     
 </div> <!-- /post-header -->

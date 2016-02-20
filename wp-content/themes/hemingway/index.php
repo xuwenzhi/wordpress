@@ -44,9 +44,9 @@
 		
 			<div class="post-nav archive-nav">
 						
-				<?php echo get_next_posts_link( __('&laquo; Older<span></span>', 'hemingway')); ?>
+				<?php echo get_next_posts_link( __('&laquo; Older<span> posts</span>', 'hemingway')); ?>
 							
-				<?php echo get_previous_posts_link( __('Newer<span></span> &raquo;', 'hemingway')); ?>
+				<?php echo get_previous_posts_link( __('Newer<span> posts</span> &raquo;', 'hemingway')); ?>
 				
 				<div class="clear"></div>
 				
