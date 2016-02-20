@@ -339,7 +339,10 @@ function the_excerpt() {
 	 *
 	 * @param string $post_excerpt The post excerpt.
 	 */
-	echo apply_filters( 'the_excerpt', get_the_excerpt() );
+	//$content = apply_filters( 'the_excerpt', get_the_excerpt() );
+	//$more_pos = strpos($content, 'more');
+	echo apply_filters( 'the_excerpt', get_the_excerpt());
+	//echo mb_substr(apply_filters( 'the_excerpt', get_the_excerpt()), 0, $more_pos+11);
 }
 
 /**
@@ -370,7 +373,9 @@ function get_the_excerpt( $deprecated = '' ) {
 	 *
 	 * @param string $post_excerpt The post excerpt.
 	 */
-	return apply_filters( 'get_the_excerpt', $post->post_excerpt );
+//var_dump($post);
+	//return apply_filters( 'get_the_excerpt', $post->post_excerpt );
+	return apply_filters( 'get_the_excerpt', $post->post_content);
 }
 
 /**

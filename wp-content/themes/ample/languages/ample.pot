@@ -60,7 +60,7 @@ msgid "Edit"
 msgstr ""
 
 #: content-single.php:24
-msgid "Tagged on: "
+msgid "Tags: "
 msgstr ""
 
 #: content.php:42 inc/widgets/widgets.php:618

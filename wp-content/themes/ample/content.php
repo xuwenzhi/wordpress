@@ -39,7 +39,7 @@
    </div>
 
    <div class="read-btn">
-      <a class="btn-default-th" href="<?php the_permalink(); ?>" title="<?php the_title_attribute();?>"><?php _e('Read more', 'ample') ?></a>
+      <a class="btn-default-th" href="<?php the_permalink(); ?>" title="<?php the_title_attribute();?>"><?php _e('READ MORE', 'ample') ?></a>
    </div>
 
    <?php do_action( 'ample_after_post_content' ); ?>

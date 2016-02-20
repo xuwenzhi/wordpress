@@ -21,7 +21,7 @@
    $ample_tag_list = get_the_tag_list( '', '&nbsp;&nbsp;&nbsp;&nbsp;', '' );
    if( !empty( $ample_tag_list ) ) { ?>
       <div class="tags">
-         <?php _e( 'Tagged on: ', 'ample' ); echo $ample_tag_list; ?>
+         <?php _e( 'Tags: ', 'ample' ); echo $ample_tag_list; ?>
       </div>
    <?php }
 
