@@ -15,6 +15,7 @@ $social_icon_style = get_option('social_icon_style');
 $template_alternativebackground = get_option('template_alternativebackground');
 $template_titlefontsize = get_option('template_titlefontsize');
 $content_fontsize = get_option('content_fontsize');
+$custom_css = get_option('custom_css');
 ?>
 /************************************* lightbreeze style *********************************/
 <?php if ($template_alternativebackground == '0') { ?>
@@ -46,8 +47,13 @@ $content_fontsize = get_option('content_fontsize');
     background-color: <?php echo $readmorecolor; ?>;
     color: <?php echo $readmorebackcolor; ?>;
 }
+.box-template .tags{
+    font-size: 15px;
+    margin-bottom: 7px;
+}
 .post_content p{ 
     color: <?php echo $contentcolor; ?>; 
+    margin-bottom: 5px;
 }
 .post_content { 
     font-size: <?php echo $content_fontsize . 'px'; ?>; 
@@ -58,10 +64,13 @@ $content_fontsize = get_option('content_fontsize');
 .meta_data_box .metacomments a { 
     color:<?php echo $color; ?>; 
 }
-.tags {	
+.tags a { 
     color:<?php echo $color; ?>; 
 }
-.tags a { 
+.bdp_blog_template a{
+    color:<?php echo $color; ?>; 
+}
+.bdp_blog_template .categories a{
     color:<?php echo $color; ?>; 
 }
 .post_content a,.post-content-body a{ 
@@ -87,7 +96,7 @@ span.category-link a{
     margin-bottom: 20px;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    padding: 15px 15px 0 15px;
+    padding: 15px 15px 15px 15px;
     border: 1px solid #ccc;
 }
 .bdp_blog_template .blog_header {
@@ -106,8 +115,11 @@ span.category-link a{
 }
 .bdp_blog_template .blog_header h1 a {
     text-decoration: none;
-    text-transform: uppercase;
+    
     line-height: 21px;
+}
+.bdp_blog_template.box-template .tags {
+    display: inline-block;
 }
 .bdp_blog_template.box-template a.more-tag {
     font-size: 14px;
@@ -135,25 +147,25 @@ span.category-link a{
 }
 .bdp_blog_template .meta_data_box .metadate {
     float: left;
-    padding: 0 0 0 10px;
-    width: 20%;
+    padding: 0 10px 0 0;
+    font-size: 15px;
 }
 .bdp_blog_template .meta_data_box .metauser {
     float: left;
-    width: 20%;
+    font-size: 15px;
+    padding-right: 10px;
 }
 .bdp_blog_template .meta_data_box .metacats {
     float: left;
-    padding: 0 10px 0 10px;
-    width: 45%;
+    padding: 0 10px 0 0;
+    font-size:15px;
 }
 .bdp_blog_template .meta_data_box .metacats a {
     text-decoration: none;
 }
 .bdp_blog_template .meta_data_box .metacomments {
-    float: left;
-    padding-left: 10px;
-    width: 30%x;
+    float: left;    
+    font-size: 15px;
 }
 .bdp_blog_template .meta_data_box .metacomments a {
     text-decoration: none;
@@ -184,7 +196,7 @@ span.category-link a{
 }
 .bdp_blog_template .tags {
     padding: 5px 10px;
-    border-radius: 3px;
+    border-radius: 3px;   
 }
 .bdp_blog_template .tags .icon-tags {
     background-position: -25px -47px;
@@ -229,13 +241,13 @@ span.category-link a{
 .classical .blog_header h1 {
     display: block;
     border-radius: 0px;
-    padding: 0 5px;
+    padding: 0;
     line-height: normal;
     margin: 0;
 }
 .blog_header h1 a {
     text-decoration: none;
-    text-transform: uppercase;
+    
     line-height: 21px;
 }
 .classical .blog_header .metadatabox {
@@ -271,9 +283,6 @@ span.category-link a{
     border-radius: 0px;
     padding: 0px;
 }
-.classical .blog_header .tags a {
-    font-size: 13px;
-}
 .wl_pagination_box {
     float: left;
     width: 100%;
@@ -287,6 +296,9 @@ span.category-link a{
 }
 .metacomments i {
     margin-right: 2px;
+}
+.classical .category-link {
+    font-size: 14px;
 }
 .classical a.more-tag{
     background-color: <?php echo $readmorebackcolor; ?>;
@@ -308,7 +320,7 @@ span.category-link a{
     display: block;
     background:  <?php echo $titlebackcolor; ?>;
     border-radius:0px;
-    padding:0 5px;
+    padding:0;
     line-height:normal;
 }
 .classical .blog_header h1 a{
@@ -325,7 +337,7 @@ span.category-link a{
 }
 .classical .blog_header .tags a{
     color: <?php echo $color; ?>;
-    font-size: 13px;
+    font-size: 14px;
 }
 .wl_pagination_box .wl_pagination span, .wl_pagination_box .wl_pagination a{
     background: <?php echo $readmorebackcolor; ?>;
@@ -349,9 +361,6 @@ span.category-link a{
 .spektrum .number-date {
     color: <?php echo $background; ?>;
 }
-.spektrum .post-bottom .post-by span {
-    color: <?php echo $color; ?>;    
-}
 .spektrum .post-bottom .categories a{
     color: <?php echo $color; ?>;
 }   
@@ -374,8 +383,14 @@ span.category-link a{
 .bdp_blog_template.spektrum a.more-tag {
     border-radius: 5px;
     font-size: 14px;
-    padding: 5px 10px;
+    padding: 4px 10px;
     float: right;
+    background: <?php echo $readmorebackcolor; ?>;
+    color: <?php echo $readmorecolor; ?>;    
+}
+.bdp_blog_template.spektrum a.more-tag:hover{
+    background: <?php echo $readmorecolor; ?>;
+    color: <?php echo $readmorebackcolor; ?>;
 }
 .social-component.spektrum-social {
     margin-bottom: 30px;
@@ -388,14 +403,14 @@ span.category-link a{
     width: 100%;
 }
 .bdp_blog_template.spektrum .date {
-    background: #212121;
-    display: block;
+    background: #212121 none repeat scroll 0 0;
+    box-sizing: border-box;
+    display: inline-block;
     float: left;
     font-size: 10px;
-    margin: 5px;
-    text-align: center;
-    text-transform: uppercase;
+    margin: 5px 15px 5px 4px;
     padding: 5px;
+    text-align: center;
 }
 .bdp_blog_template.spektrum .number-date {
     display: block;
@@ -410,16 +425,17 @@ span.category-link a{
     position: relative;
 }
 .bdp_blog_template.spektrum .blog_header h1 {
-    background: none;
-    border-radius: 0px;
-    display: inline-block;
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border-radius: 0;
+    box-sizing: border-box;
+    display: table-row-group;
     line-height: normal;
-    margin: 0;
-    padding: 5px 10px;
+    margin: 0 0 0 10px;
+    padding: 5px 10px 0 0;
 }
 .bdp_blog_template.spektrum .blog_header h1 a {
     text-decoration: none;
-    text-transform: uppercase;
+    
     line-height: 21px;
 } 
 .bdp_blog_template.spektrum .post_content {
@@ -442,16 +458,16 @@ span.category-link a{
 }
 .bdp_blog_template.spektrum .post-bottom .categories {
     display: inline-block;
-    text-transform: uppercase;
+    font-size: 14px;
     margin-right: 20px;
     float: left;
 }
 .bdp_blog_template.spektrum .post-by {
-    text-transform: uppercase;
+    font-size: 14px;
     margin-right: 15px;
 }
 .bdp_blog_template.spektrum .tags {
-    text-transform: uppercase;
+    font-size:14px;
     padding: 5px 10px;
 }
 .bdp_blog_template.spektrum .tags [class^="icon-"],
@@ -470,12 +486,9 @@ span.category-link a{
     display: none;
 }
 .bdp_blog_template.spektrum .details a {
-    color: inherit;
     display: inline-block;
-    float: right;
-    padding-right: 10px;
+    padding: 4px 10px;
     text-decoration: none;
-    text-transform: uppercase;
 }
 .wl_pagination_box.spektrum .wl_pagination span,
 .wl_pagination_box.spektrum .wl_pagination a {
@@ -553,9 +566,6 @@ span.category-link a{
     margin-top: 5px;
     padding: 5px 0;
 }
-.marketer.bdp_blog_template .post-title a {
-    text-transform: uppercase;
-}
 .post-image {
     margin-top: 10px;
 }
@@ -564,13 +574,12 @@ span.category-link a{
     float: left;
     margin-top: 10px;
 }
-.marketer.bdp_blog_template .author {
-    text-transform: uppercase;
+.marketer.bdp_blog_template .author {    
     font-size: 15px;
 }
 .marketer.bdp_blog_template .post-category a {
-    font-size: 14px;
-    text-transform: uppercase;
+    font-size: 15px;
+    text-transform: none;
 }
 .marketer.bdp_blog_template img {
     box-shadow: none;
@@ -581,18 +590,17 @@ span.category-link a{
 .marketer.bdp_blog_template .date {
     font-size: 15px;
     margin: 0px;
-    text-align: center;
-    text-transform: uppercase;
+    text-align: center;    
     padding: 10px;
     width: 9%;
 }
 .marketer.bdp_blog_template .number-date {
     line-height: 14px;
     padding: 3px 5px;
+    font-size: 15px;
 }
 .marketer.bdp_blog_template .tags {
-    font-size: 15px;
-    text-transform: uppercase;
+    font-size: 15px;    
     padding: 5px 10px;
 }
 .bdp_blog_template .tags [class^="icon-"],
@@ -667,7 +675,7 @@ span.category-link a{
 }
 .marketer.bdp_blog_template .post-bottom .categories {
     display: inline-block;
-    text-transform: uppercase;
+    
 }
 .marketer.bdp_blog_template .post-bottom .categories a {
     text-decoration: none;
@@ -681,7 +689,7 @@ span.category-link a{
     float: right;
     padding-right: 10px;
     text-decoration: none;
-    text-transform: uppercase;
+    
 }
 .wl_pagination_box.evolution {
     width: 97.5%;
@@ -765,7 +773,7 @@ span.category-link a{
     margin-left: -1px;
     position: absolute;
     top: 0;
-    width: 2px;
+    width: 3px;
 }
 .blog_template.bdp_blog_template.timeline .photo {
     text-align:center;
@@ -833,13 +841,13 @@ span.category-link a{
 .timeline_bg_wrap .timeline_back .timeline.blog-wrap:nth-child(2n) {
     clear: right;
     float: right;
-    padding-left: 38px;       
+    padding-left: 50px;       
     padding-right: 30px;
 }
 .timeline_bg_wrap .timeline_back .timeline.blog-wrap:nth-child(2n+1) {
     clear: left;
     float: left;
-    padding-right: 38px;
+    padding-right: 50px;
     padding-left: 30px;
 }
 .post_hentry {
@@ -851,29 +859,24 @@ span.category-link a{
     background:<?php echo $templatecolor; ?>;
     box-shadow:0 0 0 4px white, 0 1px 0 rgba(0, 0, 0, 0.2) inset, -3px 3px 8px 5px rgba(0, 0, 0, 0.22);
     border-radius: 50%;
-    content: " ";
+    content: "\f040";
     height: 35px;
     position: absolute;
-    right: -54px;
+    right: -68px;
     top: 0;
     width: 35px;
     box-sizing: unset;
     font-family: FontAwesome;
-    color:#fff;
-}
-.post_hentry:before {
+    color:#fff;    
     display: block;
     font-family: FontAwesome;
     font-size: 24px;
-    text-align: center;
-    line-height: 1.3;
+    text-align: center;    
+    line-height: 1.3;    
 }
-.post_hentry:before{
-    font-family: FontAwesome;
-    content: "\f040";
-}
+
 .blog_template.bdp_blog_template.timeline.blog-wrap:nth-child(2n) .post_hentry:before {
-    left: -54px;
+    left: -68px;
     right: auto;
 }
 .bdp_blog_template.blog_template.timeline {
@@ -888,7 +891,7 @@ span.category-link a{
     border-top: 8px dashed transparent;
     content: "";
     position: absolute;
-    right: 7px;
+    right: -8px;
     top: 13px;
 }
 .blog_template.bdp_blog_template.timeline.blog-wrap:nth-child(2n) .post_content_wrap:before,
@@ -897,26 +900,28 @@ span.category-link a{
     border-right: 8px solid <?php echo $templatecolor; ?>;
     border-top: 8px dashed transparent;
     content: "";
-    left: 7px;
+    left: -8px;
     position: absolute;
     top: 13px;
 }
 .bdp_blog_template.timeline.blog-wrap:nth-child(2n+1) .post_content_wrap {
     float: right;
+    margin-left: 0;
 }
 .post_content_wrap {
     border-radius: 3px;
-    margin: 0 15px;   
-    border:2px solid <?php echo $templatecolor; ?>;
+    margin: 0;   
+    border:1px solid <?php echo $templatecolor; ?>;
     word-wrap: break-word;
     font-weight: normal;
     float: left;
-    width: 90%;
+    width: 100%;
 }
 .blog_template.bdp_blog_template.timeline.blog-wrap .post_wrapper.box-blog {
     float: left;
     padding: 15px;
     width: 100%;
+    position: relative;
 }
 .clearfix:after {
     clear: both;
@@ -938,14 +943,15 @@ span.category-link a{
     background: none repeat scroll 0 0 #ffffff;
 }
 .post_content_wrap .blog_footer {
-    border-top: 2px solid <?php echo $templatecolor; ?> ;
+    border-top: 1px solid <?php echo $templatecolor; ?> ;
     padding-left: 5px;
     width: 100%;
 }
 .blog_footer span {
     padding: 5px;
-    text-transform:capitalize;
+    text-transform:none;
     display: inherit;
+    font-size: 15px;
 }
 .date_wrap span{
     text-transform:capitalize;
@@ -969,7 +975,12 @@ span.leave-reply i,
 }
 .blog_template.bdp_blog_template.timeline .read_more a.btn-more{
     background: <?php echo $readmorebackcolor; ?>;
-    padding: 6px;
+    padding: 9px 10px;
+    border-radius: 3px;
+}
+.blog_template.bdp_blog_template.timeline .read_more a.btn-more:hover{
+    background: <?php echo $readmorecolor; ?>;
+    color:<?php echo $readmorebackcolor; ?>;
 }
 .post-icon {
     background:<?php echo $templatecolor; ?>;
@@ -1011,13 +1022,15 @@ span.leave-reply i,
 .blog_template.bdp_blog_template.timeline .desc a h3 {
     color:<?php echo $titlecolor; ?>;
     background:<?php echo $titlebackcolor; ?>;
+    margin-bottom: 10px;
 }
 .blog_template.bdp_blog_template.timeline a{
-    text-transform:capitalize;
+    text-transform:none;
 }
 .blog_template.bdp_blog_template.timeline.blog-wrap .tags {
     padding: 5px;
 }
+<?php echo $custom_css; ?>
 @media screen and (max-width: 992px){  
     .timeline_bg_wrap:before {
         left: 6%;
@@ -1025,19 +1038,19 @@ span.leave-reply i,
     .timeline_bg_wrap .timeline_back .timeline.blog-wrap:nth-child(2n+1) {
         clear: right;
         float: right;
-        padding-left: 38px;
+        padding-left: 50px;
         padding-right: 30px;
     }
     .timeline_bg_wrap .timeline_back .timeline.blog-wrap {
-        width: 95%;
+        width: 94%;
     }
     .blog_template.bdp_blog_template.timeline.blog-wrap:nth-child(n) .post_hentry:before {
-        left: -48px;
+        left: -68px;
         right: auto;
     }
     .blog_template.bdp_blog_template.timeline.blog-wrap:nth-child(2n+1) .post_content_wrap:before, 
     .blog_template.bdp_blog_template.timeline.blog-wrap:nth-child(2n+1) .post_content_wrap:after {
-        left: 7px;
+        left: -8px;
         border-right: 8px solid #000000;
         border-left: none;
         right:auto;
@@ -1055,7 +1068,7 @@ span.leave-reply i,
     .timeline.blog-wrap:nth-child(2n+1) .datetime,
     .timeline.blog-wrap:nth-child(2n) .datetime {
         left: inherit;
-        right: -15px;
+        right: -30px;
     }    
     .blog_template.bdp_blog_template.timeline.blog-wrap:nth-child(2) {
         margin-top: 0;
@@ -1063,5 +1076,13 @@ span.leave-reply i,
     }
     .bdp_blog_template.timeline.blog-wrap:nth-child(2n+1) .post_content_wrap {
         float: left;
+    }
+}
+@media screen and (max-width: 550px){ 
+    .timeline_bg_wrap:before {
+        left: 10%;
+    }
+    .timeline_bg_wrap .timeline_back .timeline.blog-wrap {
+        width: 90%;
     }
 }

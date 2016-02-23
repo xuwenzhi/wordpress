@@ -6,12 +6,15 @@
   Author: Solwin Infotech
   Author URI: http://www.solwininfotech.com/
   Copyright: Solwin Infotech
-  Version: 1.6.2
+  Version: 1.6.3
   Requires at least: 4.0
   Tested up to: 4.4
   License: GPLv2 or later
  */
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if (!defined('ABSPATH'))
+    exit; // Exit if accessed directly
+define('BLOGDESIGNER_URL', plugins_url() . '/blog-designer');
+register_activation_hook(__FILE__,'wp_blog_designer_plugin_activate');
 add_action('admin_menu', 'wp_blog_designer_add_menu');
 add_action('admin_init', 'wp_blog_designer_reg_function');
 add_action('admin_init', 'wp_blog_designer_admin_stylesheet');
@@ -19,12 +22,17 @@ add_action('init', 'wp_blog_designer_front_stylesheet');
 add_action('admin_init', 'wp_blog_designer_admin_scripts');
 add_action('init', 'wp_blog_designer_stylesheet', 20);
 add_shortcode('wp_blog_designer', 'wp_blog_designer_views');
-add_action('admin_enqueue_scripts', 'mw_enqueue_color_picker');
+add_action('admin_enqueue_scripts', 'wp_blog_designer_enqueue_color_picker');
+add_action('wp_ajax_bd_closed_bdboxes', 'bd_closed_bdboxes');
+add_filter('excerpt_length', 'wp_blog_designer_excerpt_length', 999);
 
-function mw_enqueue_color_picker($hook_suffix) {
+function wp_blog_designer_enqueue_color_picker($hook_suffix) {
     // first check that $hook_suffix is appropriate for your admin page
-    wp_enqueue_style('wp-color-picker');
-    wp_enqueue_script('my-script-handle', plugins_url('js/admin_script.js', __FILE__), array('wp-color-picker'), false, true);
+    if( isset($_GET['page']) && ($_GET['page'] == 'designer_settings' || $_GET['page'] == 'about_blog_designer') ){
+        wp_enqueue_style('wp-color-picker');
+        wp_enqueue_script('my-script-handle', plugins_url('js/admin_script.js', __FILE__), array('wp-color-picker', 'jquery-ui-core', 'jquery-ui-dialog'), false, true);
+        wp_enqueue_script('my-chosen-handle', plugins_url('js/chosen.jquery.js', __FILE__));
+    }
 }
 
 /**
@@ -32,8 +40,16 @@ function mw_enqueue_color_picker($hook_suffix) {
  * @return add menu at admin panel
  */
 function wp_blog_designer_add_menu() {
-    add_menu_page(__('Blog Designer', 'wp_blog_designer'), __('Blog Designer', 'wp_blog_designer'), 'administrator', 'designer_settings', 'wp_blog_designer_menu_function');
-    add_submenu_page('designer_settings', __('Blog designer Settings', 'wp_blog_designer'), __('Settings', 'wp_blog_designer'), 'manage_options', 'designer_settings', 'wp_blog_designer_add_menu');
+    add_menu_page(__('Blog Designer', 'wp_blog_designer'), __('Blog Designer', 'wp_blog_designer'), 'administrator', 'designer_settings', 'wp_blog_designer_menu_function',BLOGDESIGNER_URL . '/images/blog-designer.png');
+    add_submenu_page('designer_settings', __('Blog designer Settings', 'wp_blog_designer'), __('Blog Designer Settings', 'wp_blog_designer'), 'manage_options', 'designer_settings', 'wp_blog_designer_add_menu');
+    add_submenu_page('designer_settings', __('About Blog Designer', 'wp_blog_designer'), __('About Blog Designer', 'wp_blog_designer'), 'manage_options', 'about_blog_designer', 'wp_blog_designer_about_us');
+}
+
+/**
+* Include admin shortcode list page
+*/
+function wp_blog_designer_about_us() {
+   include_once( 'includes/about_us.php' );
 }
 
 /**
@@ -47,10 +63,83 @@ function load_language_files() {
 add_action('plugins_loaded', 'load_language_files');
 
 /**
+ * Deactive pro version when lite version is activated
+ */
+function wp_blog_designer_plugin_activate(){
+    
+    if( is_plugin_active('blog-designer-pro/blog-designer-pro.php') ) {
+        deactivate_plugins( '/blog-designer-pro/blog-designer-pro.php' );
+    }
+    
+}
+
+/**
+ * Custom Admin Footer
+ */
+add_action( 'current_screen', 'bd_footer' );
+function bd_footer() {
+    if( isset($_GET['page']) && ($_GET['page'] == 'designer_settings' || $_GET['page'] == 'about_blog_designer') ){
+        add_filter('admin_footer_text', 'bd_remove_footer_admin');
+        function bd_remove_footer_admin () {
+        ?>
+            <p id="footer-left" class="alignleft">
+            <?php _e( 'If you like ','wp_blog_designer' ); ?>
+            <strong><?php _e( 'Blog Designer','wp_blog_designer'); ?></strong>
+            <?php _e( 'please leave us a','wp_blog_designer' ); ?>
+            <a class="bdp-rating-link" data-rated="Thanks :)" target="_blank" href="https://wordpress.org/support/view/plugin-reviews/blog-designer">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</a>
+            <?php _e( 'rating. A huge thank you from Solwin Infotech in advance!','wp_blog_designer'); ?>
+            </p>
+        <?php
+        }
+    }
+}
+
+/**
+ * Ajax handler for Store closed box id
+ */
+if (!function_exists('bd_closed_bdboxes')) {
+
+    function bd_closed_bdboxes() {
+        $closed = isset($_POST['closed']) ? explode(',', $_POST['closed']) : array();
+        $closed = array_filter($closed);
+        $page = isset($_POST['page']) ? $_POST['page'] : '';
+        if ($page != sanitize_key($page))
+            wp_die(0);
+        if (!$user = wp_get_current_user())
+            wp_die(-1);
+        if (is_array($closed))
+            update_user_option($user->ID, "bdpclosedbdpboxes_$page", $closed, true);
+        wp_die(1);
+    }
+}
+
+
+/**
+ * 
+ * @param type $id
+ * @param type $page
+ * @return type closed class
+ */
+if (!function_exists('bdp_postbox_classes')) {
+    function bdp_postbox_classes($id, $page) {
+        if ($closed = get_user_option('bdpclosedbdpboxes_' . $page)) {
+            if (!is_array($closed)) {
+                $classes = array('');
+            } else {
+                $classes = in_array($id, $closed) ? array('closed') : array('');
+            }
+        } else {
+            $classes = array('');
+        }
+        return implode(' ', $classes);
+    }
+}
+
+/**
  * 
  * @return Set default value
  */
-function wp_blog_designer_reg_function() {
+function wp_blog_designer_reg_function() {    
     $settings = get_option("wp_blog_designer_settings");
     if (empty($settings)) {
         $settings = array(
@@ -67,6 +156,8 @@ function wp_blog_designer_reg_function() {
             'template_titlebackcolor' => '#ffffff',
         );
         update_option("display_category", '0');
+        update_option("rss_use_excerpt", '1');
+        update_option("template_alternativebackground", '1');
         update_option("display_tag", '0');
         update_option("display_author", '0');
         update_option("display_date", '0');
@@ -93,15 +184,13 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'save' && isset($_REQU
     update_option("display_author", $_POST['display_author']);
     update_option("display_category", $_POST['display_category']);
     update_option("display_tag", $_POST['display_tag']);
-
     update_option("excerpt_length", $_POST['txtExcerptlength']);
     update_option("read_more_text", $_POST['txtReadmoretext']);
 
-    if (isset($_POST['template_alternativebackground']))
+    if (isset($_POST['template_alternativebackground'])){
         update_option("template_alternativebackground", $_POST['template_alternativebackground']);
-    else
-        update_option("template_alternativebackground", '');
-
+    }
+    
     if (isset($_POST['social_icon_style'])) {
         update_option("social_icon_style", $_POST['social_icon_style']);
     }
@@ -134,6 +223,9 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'save' && isset($_REQU
     }
     if (isset($_POST['content_fontsize'])) {
         update_option("content_fontsize", $_POST['content_fontsize']);
+    }
+    if (isset($_POST['custom_css'])) {
+        update_option("custom_css", stripslashes($_POST['custom_css']));
     }
 
     $templates = array();
@@ -226,7 +318,6 @@ if ($wp_version > 3.8) {
                 $returned_object = unserialize(wp_remote_retrieve_body($response));
                 $plugins = $returned_object->plugins;
             }
-
             $current_slug = 'blog-designer';
             if ($plugins) {
                 foreach ($plugins as $plugin) {
@@ -256,10 +347,24 @@ function wp_blog_designer_admin_stylesheet() {
 
     $adminstylesheetURL = plugins_url('css/admin.css', __FILE__);
     $adminstylesheet = dirname(__FILE__) . '/css/admin.css';
-
     if (file_exists($adminstylesheet)) {
         wp_register_style('wp-blog-designer-admin-stylesheets', $adminstylesheetURL);
         wp_enqueue_style('wp-blog-designer-admin-stylesheets');
+    }
+
+    $adminstylechosenURL = plugins_url('css/chosen.min.css', __FILE__);
+    $adminstylechosen = dirname(__FILE__) . '/css/chosen.min.css';
+    if (file_exists($adminstylechosen)) {
+        wp_register_style('wp-blog-designer-chosen-stylesheets', $adminstylechosenURL);
+        wp_enqueue_style('wp-blog-designer-chosen-stylesheets');
+    }
+    if(isset($_GET['page']) && $_GET['page'] == 'designer_settings') {
+        $adminstylearistoURL = plugins_url('css/aristo.css', __FILE__);
+        $adminstylearisto = dirname(__FILE__) . '/css/aristo.css';
+        if (file_exists($adminstylearisto)) {
+            wp_register_style('wp-blog-designer-aristo-stylesheets', $adminstylearistoURL);
+            wp_enqueue_style('wp-blog-designer-aristo-stylesheets');
+        }
     }
 }
 
@@ -307,18 +412,14 @@ function wp_blog_designer_stylesheet() {
  *  @param type $length
  *  @return int get content length
  */
-function custom_excerpt_length($length) {
+function wp_blog_designer_excerpt_length($length) {
 
     if (get_option('excerpt_length') != '') {
-
         return get_option('excerpt_length');
     } else {
-
         return 50;
     }
 }
-
-add_filter('excerpt_length', 'custom_excerpt_length', 999);
 
 /**
  * @return type
@@ -357,44 +458,50 @@ function wp_blog_designer_views() {
         ?>
         <div class="timeline_bg_wrap">
             <div class="timeline_back clearfix">
-                <?php
-            }
-            while (have_posts()) : the_post();
-                if ($theme == 'classical') {
-                    $class = ' classical';
-                    wp_classical_template($alter_class);
-                } elseif ($theme == 'lightbreeze') {
-                    if (get_option('template_alternativebackground') == 0) {
-                        if ($alter % 2 == 0) {
-                            $alter_class = ' alternative-back';
-                        } else {
-                            $alter_class = ' ';
-                        }
-                    }
-                    $class = ' lightbreeze';
-                    wp_lightbreeze_template($alter_class);
-                    $alter ++;
-                } elseif ($theme == 'spektrum') {
-                    $class = ' spektrum';
-                    wp_desgin3_template();
-                } elseif ($theme == 'evolution') {
-                    if (get_option('template_alternativebackground') == 0) {
-                        if ($alter % 2 == 0) {
-                            $alter_class = ' alternative-back';
-                        } else {
-                            $alter_class = ' ';
-                        }
-                    }
-                    $class = ' evolution';
-                    wp_evolution_template($alter_class);
-                    $alter ++;
-                } elseif ($theme == 'timeline') {
-                    $class = 'timeline';
-                    wp_timeline_template();
+        <?php
+    }
+    while (have_posts()) : the_post();
+        if ($theme == 'classical') {
+            $class = ' classical';
+            wp_classical_template($alter_class);
+        } elseif ($theme == 'lightbreeze') {
+            if (get_option('template_alternativebackground') == 0) {
+                if ($alter % 2 == 0) {
+                    $alter_class = ' alternative-back';
+                } else {
+                    $alter_class = ' ';
                 }
-            endwhile;
-            if ($theme == 'timeline') {
-                ?>
+            }
+            $class = ' lightbreeze';
+            wp_lightbreeze_template($alter_class);
+            $alter ++;
+        } elseif ($theme == 'spektrum') {
+            $class = ' spektrum';
+            wp_desgin3_template();
+        } elseif ($theme == 'evolution') {
+            if (get_option('template_alternativebackground') == 0) {
+                if ($alter % 2 == 0) {
+                    $alter_class = ' alternative-back';
+                } else {
+                    $alter_class = ' ';
+                }
+            }
+            $class = ' evolution';
+            wp_evolution_template($alter_class);
+            $alter ++;
+        } elseif ($theme == 'timeline') {
+            if ($alter % 2 == 0) {
+                $alter_class = ' even';
+            } else {
+                $alter_class = ' ';
+            }
+            $class = 'timeline';
+            wp_timeline_template($alter_class);
+            $alter ++;
+        }
+    endwhile;
+    if ($theme == 'timeline') {
+        ?>
             </div>
         </div>
         <?php
@@ -413,20 +520,20 @@ function wp_blog_designer_views() {
 function wp_classical_template($alterclass) {
     ?>
     <div class="blog_template bdp_blog_template classical">
-        <?php the_post_thumbnail('full'); ?>
+    <?php the_post_thumbnail('full'); ?>
         <div class="blog_header">
             <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
             <div class="metadatabox">                            
-                <?php
-                $display_date = get_option('display_date');
-                $display_author = get_option('display_author');
-                if ($display_author == 0 && $display_date == 0) {
-                    ?> 
-                    <div class="icon-date"></div><?php _e('Posted by ', 'wp_blog_designer'); ?> <span><?php the_author(); ?></span><?php _e(' on ', 'wp_blog_designer'); ?><?php the_time(__('F d, Y')); ?>
+    <?php
+    $display_date = get_option('display_date');
+    $display_author = get_option('display_author');
+    if ($display_author == 0 && $display_date == 0) {
+        ?> 
+                    <div class="icon-date"></div><?php _e('Posted by ', 'wp_blog_designer'); ?> <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><span><?php the_author(); ?></span></a><?php _e(' on ', 'wp_blog_designer'); ?><?php the_time(__('F d, Y')); ?>
 
-                <?php } elseif ($display_author == 1 && $display_date == 1) { ?>                                                                                                           
+    <?php } elseif ($display_author == 1 && $display_date == 1) { ?>                                                                                                           
                 <?php } elseif ($display_author == 0) { ?>
-                    <div class="icon-date"></div><?php _e('Posted by ', 'wp_blog_designer'); ?><span><?php the_author(); ?></span>
+                    <div class="icon-date"></div><?php _e('Posted by ', 'wp_blog_designer'); ?><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><span><?php the_author(); ?></span></a>
                 <?php } elseif ($display_date == 0) { ?>
                     <div class="icon-date"></div><?php _e('Posted on ', 'wp_blog_designer'); ?><?php the_time(__('F d, Y')); ?>
                     <?php
@@ -436,20 +543,20 @@ function wp_classical_template($alterclass) {
                     <div class="metacomments">
                         <i class="fa fa-comment"></i><?php comments_popup_link('0', '1', '%'); ?>
                     </div>
-                <?php } ?>
+    <?php } ?>
             </div>
-            <?php if (get_option('display_category') == 0) { ?>
+                <?php if (get_option('display_category') == 0) { ?>
                 <span class="category-link">
-                    <?php
-                    _e('Category :', 'wp_blog_designer');
-                    $categories_list = get_the_category_list(__(', ', 'wp_blog_designer'));
-                    if ($categories_list):
-                        printf(__(' %2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $categories_list);
-                        $show_sep = true;
-                    endif;
-                    ?>
+                <?php
+                _e('Category :', 'wp_blog_designer');
+                $categories_list = get_the_category_list(__(', ', 'wp_blog_designer'));
+                if ($categories_list):
+                    printf(__(' %2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $categories_list);
+                    $show_sep = true;
+                endif;
+                ?>
                 </span>
-            <?php } ?>
+                <?php } ?>
             <?php
             if (get_option('display_tag') == 0) {
                 $tags_list = get_the_tag_list('', __(', ', 'wp_blog_designer'));
@@ -457,23 +564,23 @@ function wp_classical_template($alterclass) {
                     ?>
                     <div class="tags">
                         <div class="icon-tags"></div>
-                        <?php
-                        printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list);
-                        $show_sep = true;
-                        ?>
-                    </div>
-                    <?php
-                endif;
-            }
+            <?php
+            printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list);
+            $show_sep = true;
             ?>
+                    </div>
+                        <?php
+                    endif;
+                }
+                ?>
         </div>
         <div class="post_content">
-            <?php if (get_option('rss_use_excerpt') == 0): ?>
+    <?php if (get_option('rss_use_excerpt') == 0): ?>
                 <?php the_content(); ?>
             <?php else: ?>
                 <?php
                 global $post;
-                the_excerpt(__('Continue reading <span class="meta-nav">&rarr;</span>', 'wp_blog_designer'));
+                the_excerpt();
                 if (get_option('read_more_text') != '') {
                     echo '<a class="more-tag" href="' . get_permalink($post->ID) . '">' . get_option('read_more_text') . ' </a>';
                 } else {
@@ -483,9 +590,9 @@ function wp_classical_template($alterclass) {
 
             <?php endif; ?>
         </div>
-        <?php if ((get_option('facebook_link') == 0) || (get_option('twitter_link') == 0) || (get_option('google_link') == 0) || (get_option('linkedin_link') == 0) || (get_option('instagram_link') == 0) || ( get_option('pinterest_link') == 0 )) { ?>
+            <?php if ((get_option('facebook_link') == 0) || (get_option('twitter_link') == 0) || (get_option('google_link') == 0) || (get_option('linkedin_link') == 0) || (get_option('instagram_link') == 0) || ( get_option('pinterest_link') == 0 )) { ?>
             <div class="social-component">
-                <?php if (get_option('facebook_link') == 0): ?>
+            <?php if (get_option('facebook_link') == 0): ?>
                     <a href="<?php echo 'https://www.facebook.com/sharer/sharer.php?u=' . get_the_permalink(); ?>" target= _blank class="facebook-share"><i class="fa fa-facebook"></i></a>
                 <?php endif; ?>
                 <?php if (get_option('twitter_link') == 0): ?>
@@ -504,66 +611,66 @@ function wp_classical_template($alterclass) {
                     <a href="<?php echo '//pinterest.com/pin/create/button/?url=' . get_the_permalink(); ?>" target= _blank class="pinterest"> <i class="fa fa-pinterest"></i></a>
                 <?php endif; ?>
             </div>
-        <?php } ?>
+            <?php } ?>
     </div>
-    <?php
-}
+        <?php
+    }
 
-/**
- * 
- * @global type $post
- * @param type $alterclass
- * @return html display lightbreeze design
- */
-function wp_lightbreeze_template($alterclass) {
-    ?>
+    /**
+     * 
+     * @global type $post
+     * @param type $alterclass
+     * @return html display lightbreeze design
+     */
+    function wp_lightbreeze_template($alterclass) {
+        ?>
     <div class="blog_template bdp_blog_template box-template active <?php echo $alterclass; ?>">
-        <?php the_post_thumbnail('full'); ?>
+    <?php the_post_thumbnail('full'); ?>
         <div class="blog_header">
             <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
             <div class="meta_data_box">
-                <?php
-                $display_date = get_option('display_date');
-                $display_author = get_option('display_author');
-                if ($display_author == 0) {
-                    ?> 
+    <?php
+    $display_date = get_option('display_date');
+    $display_author = get_option('display_author');
+    if ($display_author == 0) {
+        ?> 
                     <div class="metadate">
-                        <i class="fa fa-user"></i><?php _e('Posted by ', 'wp_blog_designer'); ?><span><?php the_author(); ?></span><br />                        
+                        <i class="fa fa-user"></i><?php _e('Posted by ', 'wp_blog_designer'); ?><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><span><?php the_author(); ?></span></a><br />                        
                     </div>
 
-                    <?php
-                }
-                if ($display_date == 0) {
-                    ?> 
+        <?php
+    }
+    if ($display_date == 0) {
+        ?> 
                     <div class="metauser">
                         <span class="mdate"><i class="fa fa-calendar"></i> <?php the_time(__('F d, Y')); ?></span>
                     </div>
-                <?php } ?>   
+    <?php } ?>   
 
                 <?php if (get_option('display_category') == 0) { ?>
                     <div class="metacats">
                         <div class="icon-cats"></div>
-                        <?php
-                        $categories_list = get_the_category_list(__(', ', 'wp_blog_designer'));
-                        if ($categories_list):
-                            printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $categories_list);
-                            $show_sep = true;
-                        endif;
-                        ?>
+        <?php
+        $categories_list = get_the_category_list(__(', ', 'wp_blog_designer'));
+        if ($categories_list):
+            printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $categories_list);
+            $show_sep = true;
+        endif;
+        ?>
                     </div>
-                    <?php
-                }
-                if (get_option('display_comment_count') == 0) {
-                    ?>
+                        <?php
+                    }
+                    if (get_option('display_comment_count') == 0) {
+                        ?>
                     <div class="metacomments">
                         <div class="icon-comment"></div>
-                        <?php comments_popup_link(__('No Comments', 'wp_blog_designer'), __('1 Comment', 'wp_blog_designer'), __('% Comments', 'wp_blog_designer')); ?>
+        <?php comments_popup_link(__('No Comments', 'wp_blog_designer'), __('1 Comment', 'wp_blog_designer'), __('% Comments', 'wp_blog_designer')); ?>
                     </div>
-                <?php } ?>
+                    <?php } ?>
             </div>
         </div>
         <div class="post_content">
-            <?php if (get_option('rss_use_excerpt') == 0): ?>
+    <?php if (get_option('rss_use_excerpt') == 0): ?>
                 <?php the_content(); ?>
             <?php else: ?>
                 <?php
@@ -577,25 +684,25 @@ function wp_lightbreeze_template($alterclass) {
                 ?>
             <?php endif; ?>
         </div>
-        <?php
-        if (get_option('display_tag') == 0) {
-            $tags_list = get_the_tag_list('', __(', ', 'wp_blog_designer'));
-            if ($tags_list):
-                ?>
+            <?php
+            if (get_option('display_tag') == 0) {
+                $tags_list = get_the_tag_list('', __(', ', 'wp_blog_designer'));
+                if ($tags_list):
+                    ?>
                 <div class="tags">
                     <div class="icon-tags"></div>
-                    <?php
-                    printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list);
-                    $show_sep = true;
-                    ?>
+            <?php
+            printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list);
+            $show_sep = true;
+            ?>
                 </div>
-                <?php
-            endif;
-        }
-        if ((get_option('facebook_link') == 0) || (get_option('twitter_link') == 0) || (get_option('google_link') == 0) || (get_option('linkedin_link') == 0) || (get_option('instagram_link') == 0) || ( get_option('pinterest_link') == 0 )) {
-            ?>        
+                    <?php
+                endif;
+            }
+            if ((get_option('facebook_link') == 0) || (get_option('twitter_link') == 0) || (get_option('google_link') == 0) || (get_option('linkedin_link') == 0) || (get_option('instagram_link') == 0) || ( get_option('pinterest_link') == 0 )) {
+                ?>        
             <div class="social-component">
-                <?php if (get_option('facebook_link') == 0): ?>
+            <?php if (get_option('facebook_link') == 0): ?>
                     <a href="<?php echo 'https://www.facebook.com/sharer/sharer.php?u=' . get_the_permalink(); ?>" target= _blank class="facebook-share"><i class="fa fa-facebook"></i></a>
                 <?php endif; ?>
                 <?php if (get_option('twitter_link') == 0): ?>
@@ -614,51 +721,51 @@ function wp_lightbreeze_template($alterclass) {
                     <a href="<?php echo '//pinterest.com/pin/create/button/?url=' . get_the_permalink(); ?>" target= _blank class="pinterest"> <i class="fa fa-pinterest"></i></a>
                 <?php endif; ?>
             </div>
-        <?php } ?>
+            <?php } ?>
     </div>   
-    <?php
-}
+        <?php
+    }
 
-/**
- * 
- * @global type $post
- * @return html display spektrum design
- */
-function wp_desgin3_template() {
-    ?>
+    /**
+     * 
+     * @global type $post
+     * @return html display spektrum design
+     */
+    function wp_desgin3_template() {
+        ?>
 
     <div class="blog_template bdp_blog_template spektrum">
-        <?php the_post_thumbnail('full'); ?>
+    <?php the_post_thumbnail('full'); ?>
         <div class="blog_header">
-            <?php if (get_option('display_date') == 0) { ?>
+        <?php if (get_option('display_date') == 0) { ?>
                 <span class="date"><span class="number-date"><?php the_time(__('d')); ?></span><?php the_time(__('F')); ?></span>
             <?php } ?>
             <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
         </div>
         <div class="post_content">
-            <?php if (get_option('rss_use_excerpt') == 0): ?>
+    <?php if (get_option('rss_use_excerpt') == 0): ?>
                 <?php the_content(); ?>
             <?php else: ?>
                 <?php the_excerpt(); ?>
             <?php endif; ?>
         </div>
         <div class="post-bottom">
-            <?php if (get_option('display_category') == 0) { ?>
+    <?php if (get_option('display_category') == 0) { ?>
                 <span class="categories">
-                    <?php
-                    $categories_list = get_the_category_list(__(', ', 'wp_blog_designer'));
-                    if ($categories_list):
-                        printf(__('Categories : %2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $categories_list);
-                        $show_sep = true;
-                    endif;
-                    ?>
+                <?php
+                $categories_list = get_the_category_list(__(', ', 'wp_blog_designer'));
+                if ($categories_list):
+                    printf(__('Categories : %2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $categories_list);
+                    $show_sep = true;
+                endif;
+                ?>
                 </span>
-            <?php } ?>
+                <?php } ?>
             <?php if (get_option('display_author') == 0) { ?>
                 <span class="post-by">
-                    <div class="icon-author"></div><?php _e('Posted by ', 'wp_blog_designer'); ?><span><?php the_author(); ?></span>
+                    <div class="icon-author"></div><?php _e('Posted by ', 'wp_blog_designer'); ?><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><span><?php the_author(); ?></span></a>
                 </span>
-            <?php } ?>
+    <?php } ?>
             <?php
             if (get_option('display_tag') == 0) {
                 $tags_list = get_the_tag_list('', __(', ', 'wp_blog_designer'));
@@ -666,31 +773,31 @@ function wp_desgin3_template() {
                     ?>
                     <span class="tags">
                         <div class="icon-tags"></div>
-                        <?php
-                        printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list);
-                        $show_sep = true;
-                        ?>
-                    </span>
-                    <?php
-                endif;
-            }
+            <?php
+            printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list);
+            $show_sep = true;
             ?>
+                    </span>
+                        <?php
+                    endif;
+                }
+                ?>
             <?php if (get_option('rss_use_excerpt') == 1): ?>
                 <span class="details">
-                    <?php
-                    global $post;
-                    if (get_option('read_more_text') != '') {
-                        echo '<a class="more-tag" href="' . get_permalink($post->ID) . '">' . get_option('read_more_text') . ' </a>';
-                    } else {
-                        echo ' <a class="more-tag" href="' . get_permalink($post->ID) . '">' . __('Read More', 'wp_blog_designer') . '</a>';
-                    }
-                    ?>                    
+                <?php
+                global $post;
+                if (get_option('read_more_text') != '') {
+                    echo '<a class="more-tag" href="' . get_permalink($post->ID) . '">' . get_option('read_more_text') . ' </a>';
+                } else {
+                    echo ' <a class="more-tag" href="' . get_permalink($post->ID) . '">' . __('Read More', 'wp_blog_designer') . '</a>';
+                }
+                ?>                    
                 </span>
-            <?php endif; ?>
+                <?php endif; ?>
         </div>
-        <?php if ((get_option('facebook_link') == 0) || (get_option('twitter_link') == 0) || (get_option('google_link') == 0) || (get_option('linkedin_link') == 0) || (get_option('instagram_link') == 0) || ( get_option('pinterest_link') == 0 )) { ?>
+            <?php if ((get_option('facebook_link') == 0) || (get_option('twitter_link') == 0) || (get_option('google_link') == 0) || (get_option('linkedin_link') == 0) || (get_option('instagram_link') == 0) || ( get_option('pinterest_link') == 0 )) { ?>
             <div class="social-component spektrum-social">
-                <?php if (get_option('facebook_link') == 0): ?>
+            <?php if (get_option('facebook_link') == 0): ?>
                     <a href="<?php echo 'https://www.facebook.com/sharer/sharer.php?u=' . get_the_permalink(); ?>" target= _blank class="facebook-share"><i class="fa fa-facebook"></i></a>
                 <?php endif; ?>
                 <?php if (get_option('twitter_link') == 0): ?>
@@ -709,7 +816,7 @@ function wp_desgin3_template() {
                     <a href="<?php echo '//pinterest.com/pin/create/button/?url=' . get_the_permalink(); ?>" target= _blank class="pinterest"> <i class="fa fa-pinterest"></i></a>
                 <?php endif; ?>
             </div>  
-        <?php } ?>
+            <?php } ?>
     </div>
 
     <?php
@@ -726,9 +833,9 @@ function wp_evolution_template($alterclass) {
 
     <div class="blog_template bdp_blog_template marketer <?php echo $alterclass; ?>">
         <div class="post-category"> 
-            <?php
-            if (get_option('display_category') == 0) {
-                ?>                                    
+    <?php
+    if (get_option('display_category') == 0) {
+        ?>                                    
                 <?php
                 $categories_list = get_the_category_list(__(', ', 'wp_blog_designer'));
                 if ($categories_list):
@@ -740,12 +847,12 @@ function wp_evolution_template($alterclass) {
         </div>
         <h1 class="post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
         <div class="post-entry-meta">
-            <?php if (get_option('display_date') == 0) { ?>
+    <?php if (get_option('display_date') == 0) { ?>
                 <span class="date"><span class="number-date"><?php the_time(__('d')); ?></span><?php the_time(__('F')); ?></span>
             <?php } ?>
 
             <?php if (get_option('display_author') == 0) { ?>
-                <span class="author"><?php _e('Posted by ', 'wp_blog_designer'); ?><?php the_author(); ?></span>
+                <span class="author"><?php _e('Posted by ', 'wp_blog_designer'); ?><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_author(); ?></a></span>
                 <?php
             }
             if (get_option('display_comment_count') == 0) {
@@ -761,41 +868,41 @@ function wp_evolution_template($alterclass) {
                     ?>
                     <span class="tags">
                         <div class="icon-tags"></div>
-                        <?php
-                        printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list);
-                        $show_sep = true;
-                        ?>
-                    </span>
-                    <?php
-                endif;
-            }
+            <?php
+            printf(__('%2$s', 'wp_blog_designer'), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list);
+            $show_sep = true;
             ?>
+                    </span>
+                        <?php
+                    endif;
+                }
+                ?>
         </div>
         <div class="post-image">
-            <?php the_post_thumbnail('full'); ?>
+    <?php the_post_thumbnail('full'); ?>
         </div>
         <div class="post-content-body">
-            <?php if (get_option('rss_use_excerpt') == 0): ?>
+    <?php if (get_option('rss_use_excerpt') == 0): ?>
                 <?php the_content(); ?>
             <?php else: ?>
                 <?php the_excerpt(); ?>
             <?php endif; ?>
         </div>
-        <?php if (get_option('rss_use_excerpt') == 1): ?>
+            <?php if (get_option('rss_use_excerpt') == 1): ?>
             <div class="post-bottom">
-                <?php
-                global $post;
-                if (get_option('read_more_text') != '') {
-                    echo '<a href="' . get_permalink($post->ID) . '">' . get_option('read_more_text') . ' </a>';
-                } else {
-                    echo ' <a href="' . get_permalink($post->ID) . '">' . __('Read more &raquo;', 'wp_blog_designer') . '</a>';
-                }
-                ?>
+            <?php
+            global $post;
+            if (get_option('read_more_text') != '') {
+                echo '<a href="' . get_permalink($post->ID) . '">' . get_option('read_more_text') . ' </a>';
+            } else {
+                echo ' <a href="' . get_permalink($post->ID) . '">' . __('Read more &raquo;', 'wp_blog_designer') . '</a>';
+            }
+            ?>
             </div>
-        <?php endif; ?>
+            <?php endif; ?>
         <?php if ((get_option('facebook_link') == 0) || (get_option('twitter_link') == 0) || (get_option('google_link') == 0) || (get_option('linkedin_link') == 0) || (get_option('instagram_link') == 0) || ( get_option('pinterest_link') == 0 )) { ?>
             <div class="social-component">
-                <?php if (get_option('facebook_link') == 0): ?>
+            <?php if (get_option('facebook_link') == 0): ?>
                     <a href="<?php echo 'https://www.facebook.com/sharer/sharer.php?u=' . get_the_permalink(); ?>" target= _blank class="facebook-share"><i class="fa fa-facebook"></i></a>
                 <?php endif; ?>
                 <?php if (get_option('twitter_link') == 0): ?>
@@ -814,22 +921,21 @@ function wp_evolution_template($alterclass) {
                     <a href="<?php echo '//pinterest.com/pin/create/button/?url=' . get_the_permalink(); ?>" target= _blank class="pinterest"> <i class="fa fa-pinterest"></i></a>
                 <?php endif; ?>
             </div>
-        <?php } ?>
+            <?php } ?>
     </div>
-    <?php
-}
+        <?php
+    }
 
-/**
- * 
- * @global type $post
- * @return html display timeline design
- */
-function wp_timeline_template() {
-    ?>
-    <div class="blog_template bdp_blog_template timeline blog-wrap">
+    /**
+     * 
+     * @global type $post
+     * @return html display timeline design
+     */
+    function wp_timeline_template($alterclass) {
+        ?>
+    <div class="blog_template bdp_blog_template timeline blog-wrap <?php echo $alterclass; ?>">
         <div class="post_hentry ">
             <div class="post_content_wrap">
-
                 <div class="post_wrapper box-blog">
                     <div class="photo">
                         <?php the_post_thumbnail('full'); ?>
@@ -842,7 +948,7 @@ function wp_timeline_template() {
                             <?php if (get_option('display_author') == 0) { ?>
                                 <span title="Posted By <?php the_author(); ?>">
                                     <i class="fa fa-user"></i>
-                                    <span><?php the_author(); ?></span>
+                                    <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>"><span><?php the_author(); ?></span></a>
                                 </span>  
                             <?php } ?>
                             <div class="datetime">
@@ -850,15 +956,15 @@ function wp_timeline_template() {
                                 <span class="date"><?php the_time(__('d')); ?></span>
                             </div>
                         </div>
-                        <div class="post_content">
-                            <?php if (get_option('rss_use_excerpt') == 0): ?>
-                                <?php the_content(); ?>
-                            <?php else: ?>
-                                <?php the_excerpt(); ?>
-                            <?php endif; ?>
+                        <div class="post_content">                            
+                        <?php
+                            if ( get_option('rss_use_excerpt') == 0){
+                                the_content();  
+                            }else{                                
+                                the_excerpt();
+                            } ?>
                         </div>
                         <?php if (get_option('rss_use_excerpt') == 1): ?>
-
                             <div class="read_more">
                                 <?php
                                 global $post;
@@ -873,10 +979,9 @@ function wp_timeline_template() {
                     </div>
                 </div>
                 <footer class="blog_footer text-capitalize">
-
                     <?php if (get_option('display_category') == 0) { ?>
                         <span class="categories">
-                            <i class="fa fa-bookmark"></i>
+                            <i class="fa fa-folder"></i>
                             <?php
                             $categories_list = get_the_category_list(__(', ', 'wp_blog_designer'));
                             if ($categories_list):
@@ -903,7 +1008,6 @@ function wp_timeline_template() {
                         endif;
                     }
                     ?>
-
                     <?php if ((get_option('facebook_link') == 0) || (get_option('twitter_link') == 0) || (get_option('google_link') == 0) || (get_option('linkedin_link') == 0) || (get_option('instagram_link') == 0) || ( get_option('pinterest_link') == 0 )) { ?>
                         <div class="social-component spektrum-social">
                             <?php if (get_option('facebook_link') == 0): ?>
@@ -926,8 +1030,8 @@ function wp_timeline_template() {
                             <?php endif; ?>
                         </div>  
                     <?php } ?>
+                </footer>
             </div>            
-            </footer>
         </div>
     </div>
     <?php
@@ -943,276 +1047,429 @@ function wp_blog_designer_menu_function() {
     ?>
     <div class="wrap">
         <h2><?php _e('Blog Designer Settings', 'wp_blog_designer') ?></h2>
-        <?php if (isset($_GET['updated']) && 'true' == esc_attr($_GET['updated'])) echo '<div class="updated" ><p>' . __('Designer Settings updated.', 'wp_blog_designer') . '</p></div>'; ?>
-        <?php
+    <?php    
+    if( isset($_REQUEST['bdRestoreDefault']) && isset($_GET['updated']) && 'true' == esc_attr($_GET['updated']) ){
+        echo '<div class="updated" ><p>' . __('Designer setting restored successfully.', 'wp_blog_designer') . '</p></div>'; 
+    }else if (isset($_GET['updated']) && 'true' == esc_attr($_GET['updated'])) {
+        echo '<div class="updated" ><p>' . __('Designer Settings updated.', 'wp_blog_designer') . '</p></div>'; 
+    }
+    
         $settings = get_option("wp_blog_designer_settings");
-        if (isset($_SESSION['success_msg'])) { ?>
+        if (isset($_SESSION['success_msg'])) {
+            ?>
             <div class="updated is-dismissible notice settings-error"><?php
-                echo '<p>'.$_SESSION['success_msg'].'</p>';
-                unset($_SESSION['success_msg']);
-                ?></div>
-        <?php } ?>
-        <form method="post" action="?page=designer_settings&action=save&updated=true" class="bd-form-class">
-            <!--script type="text/javascript">jQuery( window ).load( function() { jQuery( "#template_category" ).attr( "multiple", "multiple" );});</script-->
+            echo '<p>' . $_SESSION['success_msg'] . '</p>';
+            unset($_SESSION['success_msg']);
+            ?></div>
+            <?php } ?>
+        <form method="post" action="?page=designer_settings&action=save&updated=true" class="bd-form-class">            
+    <?php
+    // wp_nonce_field('bdp-shortcode-form-submit', 'bdp-submit-nonce'); 
+    $page = '';
+    if (isset($_GET['page']) && $_GET['page'] != '') {
+        $page = $_GET['page'];
+        ?>
+                <input type="hidden" name="originalpage" class="bdporiginalpage" value="<?php echo $page; ?>">
+            <?php } ?>
             <div class="wl-pages" >
                 <div class="wl-page wl-settings active">
                     <div class="wl-box wl-settings">
-                        <h3 class="header"><?php _e('General Settings', 'wp_blog_designer') ?></h3>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><?php _e('Blog Page Displays', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <?php printf(__('%s', 'wp_blog_designer'), wp_dropdown_pages(array('name' => 'blog_page_display', 'echo' => 0, 'show_option_none' => __('--Select Page--', 'wp_blog_designer'), 'option_none_value' => '0', 'selected' => get_option('blog_page_display')))); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Blog Pages Show at Most', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="posts_per_page" type="number" step="1" min="1" id="posts_per_page" value="<?php echo get_option('posts_per_page'); ?>" class="small-text" /> <?php _e('Posts', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>                                
-                                <tr>
-                                    <td><?php _e('Display Post Category ', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="display_category" type="radio" value="0" <?php checked(0, get_option('display_category')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="display_category" type="radio" value="1" <?php checked(1, get_option('display_category')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Display Post Tag ', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="display_tag" type="radio" value="0" <?php checked(0, get_option('display_tag')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="display_tag" type="radio" value="1" <?php checked(1, get_option('display_tag')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Display Post Author ', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="display_author" type="radio" value="0" <?php checked(0, get_option('display_author')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="display_author" type="radio" value="1" <?php checked(1, get_option('display_author')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Display Post Date ', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="display_date" type="radio" value="0" <?php checked(0, get_option('display_date')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="display_date" type="radio" value="1" <?php checked(1, get_option('display_date')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Display Post Comment Count ', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="display_comment_count" type="radio" value="0" <?php checked(0, get_option('display_comment_count')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="display_comment_count" type="radio" value="1" <?php checked(1, get_option('display_comment_count')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h3 class="header"><?php _e('Standard Settings', 'wp_blog_designer') ?></h3>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><?php _e('Blog Post Categories', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <?php $categories = get_categories(array('child_of' => '', 'hide_empty' => 1)); ?>
-                                        <select name="template_category[]" id="template_category" multiple="multiple">
-                                            <option><?php _e('-- Select Category --', 'wp_blog_designer'); ?></option>
-                                            <?php foreach ($categories as $categoryObj): ?>
-                                                <option value="<?php echo $categoryObj->term_id; ?>" <?php
-                                                if (@in_array($categoryObj->term_id, $settings['template_category'])) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>><?php echo $categoryObj->name; ?></option>
-                                                    <?php endforeach; ?>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Blog Designs', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <select name="template_name" id="template_name">
-                                            <option value=""><?php _e('---select---', 'wp_blog_designer'); ?></option>
-                                            <option value="classical" <?php if ($settings["template_name"] == 'classical') { ?> selected="selected"<?php } ?>><?php _e('Classical Desgin', 'wp_blog_designer'); ?></option>
-                                            <option value="lightbreeze" <?php if ($settings["template_name"] == 'lightbreeze') { ?> selected="selected"<?php } ?>><?php _e('Light Breeze Design', 'wp_blog_designer'); ?></option>
-                                            <option value="spektrum" <?php if ($settings["template_name"] == 'spektrum') { ?> selected="selected"<?php } ?>><?php _e('Spektrum Design', 'wp_blog_designer'); ?></option>
-                                            <option value="evolution" <?php if ($settings["template_name"] == 'evolution') { ?> selected="selected"<?php } ?>><?php _e('Evolution Design', 'wp_blog_designer'); ?></option>
-                                            <option value="timeline" <?php if ($settings["template_name"] == 'timeline') { ?> selected="selected"<?php } ?>><?php _e('Timeline Design', 'wp_blog_designer'); ?></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr class="blog-templatecolor-tr">
-                                    <td><?php _e('Blog Posts Template Color', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_color" id="template_color" value="<?php echo $settings["template_color"]; ?>"/>                                        
-                                    </td>
-                                </tr>
-                                <tr class="blog-template-tr">
-                                    <td><?php _e('Background Color for Blog Posts', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_bgcolor" id="template_bgcolor" value="<?php echo $settings["template_bgcolor"]; ?>"/>                                        
-                                    </td>
-                                </tr>
-                                <tr class="blog-template-tr">
-                                    <td><?php _e('Alternative Background Color', 'wp_blog_designer'); ?></td>
-                                    <td>
-                                        <input type="radio" value="0" name="template_alternativebackground" <?php checked(0, get_option('template_alternativebackground')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input type="radio" value="1" name="template_alternativebackground" <?php checked(1, get_option('template_alternativebackground')); ?>	/> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>                                    
-                                </tr>
-                                <tr class="alternative-color-tr">
-                                    <td><?php _e('Choose Alternative Background Color', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_alterbgcolor" id="template_alterbgcolor" value="<?php echo $settings["template_alterbgcolor"]; ?>"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Choose Link Color', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_ftcolor" id="template_ftcolor" value="<?php echo $settings["template_ftcolor"]; ?>" data-default-color="<?php echo $settings["template_ftcolor"]; ?>"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>                        
-                        <h3 class="header"><?php _e('Title Settings', 'wp_blog_designer') ?></h3>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><?php _e('Post Title Color', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_titlecolor" id="template_titlecolor" value="<?php echo $settings["template_titlecolor"]; ?>"/>
-                                    </td>
-                                </tr>                                
-                                <tr>
-                                    <td><?php _e('Post Title Background Color', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_titlebackcolor" id="template_titlebackcolor" value="<?php echo $settings["template_titlebackcolor"]; ?>"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Post Title Font Size', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <select name="template_titlefontsize" id="template_titlefontsize">
-                                            <?php for ($i = 10; $i <= 100; $i++) { ?>
-                                                <option value="<?php echo $i; ?>" <?php if (get_option('template_titlefontsize') == $i) { ?> selected="selected"<?php } ?>><?php echo $i . 'px'; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h3 class="header"><?php _e('Content Settings', 'wp_blog_designer') ?></h3>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><?php _e('For each Article in a Feed, Show ', 'wp_blog_designer') ?></td>
-                                    <td class="rss_use_excerpt">
-                                        <input name="rss_use_excerpt" type="radio" value="0" <?php checked(0, get_option('rss_use_excerpt')); ?>	/> <?php _e('Full Text', 'wp_blog_designer'); ?>
-                                        <input name="rss_use_excerpt" type="radio" value="1" <?php checked(1, get_option('rss_use_excerpt')); ?> /> <?php _e('Summary', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr class="excerpt_length">
-                                    <td><?php _e('Post Content Length', 'wp_blog_designer') ?></td>
-                                    <td >
-                                        <input type="text" name="txtExcerptlength" value="<?php echo get_option('excerpt_length'); ?>" placeholder="Enter excerpt length">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Post Content Font Size', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <select name="content_fontsize" id="content_fontsize">
-                                            <?php for ($i = 10; $i <= 100; $i++) { ?>
-                                                <option value="<?php echo $i; ?>" <?php if (get_option('content_fontsize') == $i) { ?> selected="selected"<?php } ?>><?php echo $i . 'px'; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Post Content Color', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_contentcolor" id="template_contentcolor" value="<?php echo $settings["template_contentcolor"]; ?>"/>
-                                    </td>
-                                </tr>
-                                <tr class="read_more_text">
-                                    <td><?php _e('Read More Text', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input type="text" name="txtReadmoretext" value="<?php echo get_option('read_more_text'); ?>" placeholder="Enter read more text">
-                                    </td>
-                                </tr>
-                                <tr class="read_more_text_color">
-                                    <td><?php _e('Read More Text Color', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_readmorecolor" id="template_readmorecolor" value="<?php echo $settings["template_readmorecolor"]; ?>"/>
-                                    </td>
-                                </tr>
-                                <tr class="read_more_text_background">
-                                    <td><?php _e('Read More Text Background Color', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input type="text" name="template_readmorebackcolor" id="template_readmorebackcolor" value="<?php echo $settings["template_readmorebackcolor"]; ?>"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h3 class="header"><?php _e('Social Settings', 'wp_blog_designer') ?></h3>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><?php _e('Shape of Social Icon', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input name="social_icon_style" type="radio" value="0" checked="checked" <?php checked(0, get_option('social_icon_style')); ?>	/> <?php _e('Circle', 'wp_blog_designer'); ?>
-                                        <input name="social_icon_style" type="radio" value="1" <?php checked(1, get_option('social_icon_style')); ?> /> <?php _e('Square', 'wp_blog_designer'); ?>                                        
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Facebook Share Link', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input name="facebook_link" type="radio" value="0" <?php checked(0, get_option('facebook_link')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="facebook_link" type="radio" value="1" <?php checked(1, get_option('facebook_link')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Twitter Share Link', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input name="twitter_link" type="radio" value="0" <?php checked(0, get_option('twitter_link')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="twitter_link" type="radio" value="1" <?php checked(1, get_option('twitter_link')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Google+ Share Link', 'wp_blog_designer') ?></td>
-                                    <td>                                        
-                                        <input name="google_link" type="radio" value="0" <?php checked(0, get_option('google_link')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="google_link" type="radio" value="1" <?php checked(1, get_option('google_link')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Linkedin Share Link', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="linkedin_link" type="radio" value="0" <?php checked(0, get_option('linkedin_link')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="linkedin_link" type="radio" value="1" <?php checked(1, get_option('linkedin_link')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?php _e('Share Via Mail', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="instagram_link" type="radio" value="0" <?php checked(0, get_option('instagram_link')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="instagram_link" type="radio" value="1" <?php checked(1, get_option('instagram_link')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>                                
+                        <div id="poststuff" class="bd_poststuff">
+                            <div class="postbox-container">  
+                                <div id="bdpgeneral" class="postbox postbox-with-fw-options <?php echo bdp_postbox_classes('bdpgeneral', $page); ?>">
+                                    <button class="handlediv button-link" type="button">
+                                        <span class="toggle-indicator" aria-hidden="true"></span>
+                                    </button>
+                                    <h3 class="hndle ui-sortable-handle">
+                                        <span>
+                                            <?php _e('General Settings', 'wp_blog_designer') ?>
+                                        </span>
+                                    </h3>
+                                    <div class="inside">    
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?php _e('Blog Page Displays', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <?php printf(__('%s', 'wp_blog_designer'), wp_dropdown_pages(array('name' => 'blog_page_display', 'echo' => 0, 'show_option_none' => __('-- Select Page --', 'wp_blog_designer'), 'option_none_value' => '0', 'selected' => get_option('blog_page_display')))); ?>
+                                                        <div class="bdp-setting-description">
+                                                            <b><?php _e('Note:','wp_blog_designer'); ?></b>
+                                                            <?php
+                                                                _e('You are about to select the page for your layout, you will lost your page content. There is no undo. Think about it!','wp_blog_designer');
+                                                            ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Blog Pages Show at Most', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <input name="posts_per_page" type="number" step="1" min="1" id="posts_per_page" value="<?php echo get_option('posts_per_page'); ?>" class="small-text" onkeypress="return isNumberKey(event)" /> <?php _e('Posts', 'wp_blog_designer'); ?>
+                                                    </td>
+                                                </tr>                                
+                                                <tr>
+                                                    <td><?php _e('Display Post Category ', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="display_category_1" name="display_category" type="radio" value="1" <?php echo checked(1, get_option('display_category')); ?> /> 
+                                                            <label for="display_category_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="display_category_0" name="display_category" type="radio" value="0" <?php echo checked(0, get_option('display_category')); ?>/>
+                                                            <label for="display_category_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Display Post Tag ', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="display_tag_1" name="display_tag" type="radio" value="1" <?php echo checked(1, get_option('display_tag')); ?> /> 
+                                                            <label for="display_tag_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="display_tag_0" name="display_tag" type="radio" value="0" <?php echo checked(0, get_option('display_tag')); ?>/>
+                                                            <label for="display_tag_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Display Post Author ', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="display_author_1" name="display_author" type="radio" value="1" <?php echo checked(1, get_option('display_author')); ?> /> 
+                                                            <label for="display_author_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="display_author_0" name="display_author" type="radio" value="0" <?php echo checked(0, get_option('display_author')); ?>/>
+                                                            <label for="display_author_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Display Post Date ', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="display_date_1" name="display_date" type="radio" value="1" <?php echo checked(1, get_option('display_date')); ?> /> 
+                                                            <label for="display_date_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="display_date_0" name="display_date" type="radio" value="0" <?php echo checked(0, get_option('display_date')); ?>/>
+                                                            <label for="display_date_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr class="last-tr">
+                                                    <td><?php _e('Display Post Comment Count ', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="display_comment_count_1" name="display_comment_count" type="radio" value="1" <?php echo checked(1, get_option('display_comment_count')); ?> /> 
+                                                            <label for="display_comment_count_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="display_comment_count_0" name="display_comment_count" type="radio" value="0" <?php echo checked(0, get_option('display_comment_count')); ?>/>
+                                                            <label for="display_comment_count_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="bdpstandard" class="postbox postbox-with-fw-options <?php echo bdp_postbox_classes('bdpstandard', $page); ?>">
+                                    <button class="handlediv button-link" type="button">
+                                        <span class="toggle-indicator" aria-hidden="true"></span>
+                                    </button>
+                                    <h3 class="hndle ui-sortable-handle">
+                                        <span>
+                                            <?php _e('Standard Settings', 'wp_blog_designer') ?>
+                                        </span>
+                                    </h3>
+                                    <div class="inside">   
 
-                                <tr>
-                                    <td><?php _e('Pinterest Share link', 'wp_blog_designer') ?></td>
-                                    <td>
-                                        <input name="pinterest_link" type="radio" value="0" <?php checked(0, get_option('pinterest_link')); ?>	/> <?php _e('Yes', 'wp_blog_designer'); ?>
-                                        <input name="pinterest_link" type="radio" value="1" <?php checked(1, get_option('pinterest_link')); ?> /> <?php _e('No', 'wp_blog_designer'); ?>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?php _e('Blog Post Categories', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <?php $categories = get_categories(array('child_of' => '', 'hide_empty' => 1)); ?>
+                                                        <select data-placeholder="<?php esc_attr_e('Choose Post Categories', 'wp_blog_designer'); ?>" class="chosen-select" multiple style="width:220px;" name="template_category[]" id="template_category">
+                                                            <?php foreach ($categories as $categoryObj): ?>
+                                                                <option value="<?php echo $categoryObj->term_id; ?>" <?php
+                                                        if (@in_array($categoryObj->term_id, $settings['template_category'])) {
+                                                            echo 'selected="selected"';
+                                                        }
+                                                                ?>><?php echo $categoryObj->name; ?></option>
+                                                                    <?php endforeach; ?> 
+                                                        </select>  
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Blog Designs', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <select name="template_name" id="template_name">
+                                                            <option value=""><?php _e('-- Select Blog Template --', 'wp_blog_designer'); ?></option>
+                                                            <option value="classical" <?php if ($settings["template_name"] == 'classical') { ?> selected="selected"<?php } ?>><?php _e('Classical Template', 'wp_blog_designer'); ?></option>
+                                                            <option value="lightbreeze" <?php if ($settings["template_name"] == 'lightbreeze') { ?> selected="selected"<?php } ?>><?php _e('Light Breeze Template', 'wp_blog_designer'); ?></option>
+                                                            <option value="spektrum" <?php if ($settings["template_name"] == 'spektrum') { ?> selected="selected"<?php } ?>><?php _e('Spektrum Template', 'wp_blog_designer'); ?></option>
+                                                            <option value="evolution" <?php if ($settings["template_name"] == 'evolution') { ?> selected="selected"<?php } ?>><?php _e('Evolution Template', 'wp_blog_designer'); ?></option>
+                                                            <option value="timeline" <?php if ($settings["template_name"] == 'timeline') { ?> selected="selected"<?php } ?>><?php _e('Timeline Template', 'wp_blog_designer'); ?></option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr class="blog-templatecolor-tr">
+                                                    <td><?php _e('Blog Posts Template Color', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_color" id="template_color" value="<?php echo $settings["template_color"]; ?>"/>                                        
+                                                    </td>
+                                                </tr>
+                                                <tr class="blog-template-tr">
+                                                    <td><?php _e('Background Color for Blog Posts', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_bgcolor" id="template_bgcolor" value="<?php echo $settings["template_bgcolor"]; ?>"/>                                        
+                                                    </td>
+                                                </tr>
+                                                <tr class="blog-template-tr">
+                                                    <td><?php _e('Alternative Background Color', 'wp_blog_designer'); ?></td>
+                                                    <td>
+                                                        <?php
+                                                        $bd_alter = get_option('template_alternativebackground');
+                                                        if( !empty($bd_alter)){
+                                                            $alternativebackground = get_option('template_alternativebackground');
+                                                        }else{
+                                                            $alternativebackground = 1;
+                                                        }                                                        
+                                                        ?>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="template_alternativebackground_1" name="template_alternativebackground" type="radio" value="1" <?php echo checked(1, $alternativebackground); ?> /> 
+                                                            <label for="template_alternativebackground_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="template_alternativebackground_0" name="template_alternativebackground" type="radio" value="0" <?php echo checked(0, $alternativebackground); ?>/>
+                                                            <label for="template_alternativebackground_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>                                    
+                                                </tr>
+                                                <tr class="alternative-color-tr">
+                                                    <td><?php _e('Choose Alternative Background Color', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_alterbgcolor" id="template_alterbgcolor" value="<?php echo $settings["template_alterbgcolor"]; ?>"/>
+                                                    </td>
+                                                </tr>
+                                                <tr class="last-tr">
+                                                    <td><?php _e('Choose Link Color', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_ftcolor" id="template_ftcolor" value="<?php echo $settings["template_ftcolor"]; ?>" data-default-color="<?php echo $settings["template_ftcolor"]; ?>"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Custom CSS', 'wp_blog_designer'); ?></td>
+                                                    <td>
+                                                        <textarea name="custom_css" id="custom_css"><?php echo stripslashes(get_option('custom_css')); ?></textarea>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+                                <div id="bdptitle" class="postbox postbox-with-fw-options <?php echo bdp_postbox_classes('bdptitle', $page); ?>">
+                                    <button class="handlediv button-link" type="button">
+                                        <span class="toggle-indicator" aria-hidden="true"></span>
+                                    </button>
+                                    <h3 class="hndle ui-sortable-handle">
+                                        <span>
+                                            <?php _e('Title Settings', 'wp_blog_designer') ?>
+                                        </span>
+                                    </h3>
+                                    <div class="inside">   
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?php _e('Post Title Color', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_titlecolor" id="template_titlecolor" value="<?php echo $settings["template_titlecolor"]; ?>"/>
+                                                    </td>
+                                                </tr>                                
+                                                <tr>
+                                                    <td><?php _e('Post Title Background Color', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_titlebackcolor" id="template_titlebackcolor" value="<?php echo $settings["template_titlebackcolor"]; ?>"/>
+                                                    </td>
+                                                </tr>
+                                                <tr class="last-tr">
+                                                    <td><?php _e('Post Title Font Size', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <select name="template_titlefontsize" id="template_titlefontsize">
+                                                            <?php for ($i = 10; $i <= 100; $i++) { ?>
+                                                                <option value="<?php echo $i; ?>" <?php if (get_option('template_titlefontsize') == $i) { ?> selected="selected"<?php } ?>><?php echo $i . 'px'; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>        
+                                <div id="bdpcontent" class="postbox postbox-with-fw-options <?php echo bdp_postbox_classes('bdpcontent', $page); ?>">
+                                    <button class="handlediv button-link" type="button">
+                                        <span class="toggle-indicator" aria-hidden="true"></span>
+                                    </button>
+                                    <h3 class="hndle ui-sortable-handle">
+                                        <span>
+                                            <?php _e('Content Settings', 'wp_blog_designer') ?>
+                                        </span>
+                                    </h3>
+                                    <div class="inside">   
+
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?php _e('For each Article in a Feed, Show ', 'wp_blog_designer') ?></td>
+                                                    <td class="rss_use_excerpt">
+                                                        <?php                                                        
+                                                            $rss_use_excerpt = get_option('rss_use_excerpt');                                                        
+                                                        ?>
+                                                        <fieldset class="buttonset green">                                                                                                        
+                                                            <input id="rss_use_excerpt_1" name="rss_use_excerpt" type="radio" value="1" <?php echo checked(1, $rss_use_excerpt); ?> /> 
+                                                            <label for="rss_use_excerpt_1"><?php _e('Summary', 'wp_blog_designer'); ?></label>
+                                                            <input id="rss_use_excerpt_0" name="rss_use_excerpt" type="radio" value="0" <?php echo checked(0, $rss_use_excerpt); ?>/>
+                                                            <label for="rss_use_excerpt_0"><?php _e('Full Text', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr class="excerpt_length">
+                                                    <td><?php _e('Post Content Length', 'wp_blog_designer') ?></td>
+                                                    <td >
+                                                        <input type="number" id="txtExcerptlength" name="txtExcerptlength" value="<?php echo get_option('excerpt_length'); ?>" min="1" step="1" class="small-text" onkeypress="return isNumberKey(event)"><?php _e(' Words'); ?>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Post Content Font Size', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <select name="content_fontsize" id="content_fontsize">
+                                                            <?php for ($i = 10; $i <= 100; $i++) { ?>
+                                                                <option value="<?php echo $i; ?>" <?php if (get_option('content_fontsize') == $i) { ?> selected="selected"<?php } ?>><?php echo $i . 'px'; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Post Content Color', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_contentcolor" id="template_contentcolor" value="<?php echo $settings["template_contentcolor"]; ?>"/>
+                                                    </td>
+                                                </tr>
+                                                <tr class="read_more_text">
+                                                    <td><?php _e('Read More Text', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <input type="text" name="txtReadmoretext" id="txtReadmoretext" value="<?php echo get_option('read_more_text'); ?>" placeholder="Enter read more text">
+                                                    </td>
+                                                </tr>
+                                                <tr class="read_more_text_color">
+                                                    <td><?php _e('Read More Text Color', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_readmorecolor" id="template_readmorecolor" value="<?php echo $settings["template_readmorecolor"]; ?>"/>
+                                                    </td>
+                                                </tr>
+                                                <tr class="read_more_text_background last-tr">
+                                                    <td><?php _e('Read More Text Background Color', 'wp_blog_designer') ?></td>
+                                                    <td>                                        
+                                                        <input type="text" name="template_readmorebackcolor" id="template_readmorebackcolor" value="<?php echo $settings["template_readmorebackcolor"]; ?>"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="bdpsocial" class="postbox postbox-with-fw-options <?php echo bdp_postbox_classes('bdpsocial', $page); ?>">
+                                    <button class="handlediv button-link" type="button">
+                                        <span class="toggle-indicator" aria-hidden="true"></span>
+                                    </button>
+                                    <h3 class="hndle ui-sortable-handle">
+                                        <span>
+                                            <?php _e('Social Settings', 'wp_blog_designer') ?>
+                                        </span>
+                                    </h3>
+                                    <div class="inside">  
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?php _e('Shape of Social Icon', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset green">                                                                                                        
+                                                            <input id="social_icon_style_1" name="social_icon_style" type="radio" value="1" <?php echo checked(1, get_option('social_icon_style')); ?> /> 
+                                                            <label for="social_icon_style_1"><?php _e('Square', 'wp_blog_designer'); ?></label>
+                                                            <input id="social_icon_style_0" name="social_icon_style" type="radio" value="0" <?php echo checked(0, get_option('social_icon_style')); ?>/>
+                                                            <label for="social_icon_style_0"><?php _e('Circle', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Facebook Share Link', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="facebook_link_1" name="facebook_link" type="radio" value="1" <?php echo checked(1, get_option('facebook_link')); ?> /> 
+                                                            <label for="facebook_link_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="facebook_link_0" name="facebook_link" type="radio" value="0" <?php echo checked(0, get_option('facebook_link')); ?>/>
+                                                            <label for="facebook_link_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Twitter Share Link', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="twitter_link_1" name="twitter_link" type="radio" value="1" <?php echo checked(1, get_option('twitter_link')); ?> /> 
+                                                            <label for="twitter_link_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="twitter_link_0" name="twitter_link" type="radio" value="0" <?php echo checked(0, get_option('twitter_link')); ?>/>
+                                                            <label for="twitter_link_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Google+ Share Link', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="google_link_1" name="google_link" type="radio" value="1" <?php echo checked(1, get_option('google_link')); ?> /> 
+                                                            <label for="google_link_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="google_link_0" name="google_link" type="radio" value="0" <?php echo checked(0, get_option('google_link')); ?>/>
+                                                            <label for="google_link_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Linkedin Share Link', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="linkedin_link_1" name="linkedin_link" type="radio" value="1" <?php echo checked(1, get_option('linkedin_link')); ?> /> 
+                                                            <label for="linkedin_link_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="linkedin_link_0" name="linkedin_link" type="radio" value="0" <?php echo checked(0, get_option('linkedin_link')); ?>/>
+                                                            <label for="linkedin_link_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?php _e('Share Via Mail', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="instagram_link_1" name="instagram_link" type="radio" value="1" <?php echo checked(1, get_option('instagram_link')); ?> /> 
+                                                            <label for="instagram_link_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="instagram_link_0" name="instagram_link" type="radio" value="0" <?php echo checked(0, get_option('instagram_link')); ?>/>
+                                                            <label for="instagram_link_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>                                
+
+                                                <tr class="last-tr">
+                                                    <td><?php _e('Pinterest Share link', 'wp_blog_designer') ?></td>
+                                                    <td>
+                                                        <fieldset class="buttonset">                                                                                                        
+                                                            <input id="pinterest_link_1" name="pinterest_link" type="radio" value="1" <?php echo checked(1, get_option('pinterest_link')); ?> /> 
+                                                            <label for="pinterest_link_1"><?php _e('No', 'wp_blog_designer'); ?></label>
+                                                            <input id="pinterest_link_0" name="pinterest_link" type="radio" value="0" <?php echo checked(0, get_option('pinterest_link')); ?>/>
+                                                            <label for="pinterest_link_0"><?php _e('Yes', 'wp_blog_designer'); ?></label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>                             
             <div class="inner">
                 <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'wp_blog_designer'); ?>" />
+                <input type="submit" name="bdRestoreDefault" class="button-secondary bdp-restore-default" value="<?php _e('Restore Default', 'wp_blog_designer'); ?>"/>
                 <p class="wl-saving-warning"></p>
                 <div class="clear"></div>
             </div>            
@@ -1294,20 +1551,14 @@ function wp_blog_designer_menu_function() {
                 </div>
             </div>
             <div class="useful_plugins">
-                <h3><?php _e('Our Other Works', 'wp_blog_designer'); ?></h3>
-                <ul class="plugins_list">
-                    <li>
-                        <span class="plugin_img">
-                            <img src="http://www.solwininfotech.com/wp-content/uploads/2015/10/avartan-slider-300x300.png" />
-                        </span>
-                        <span>
-                            <a href="http://www.solwininfotech.com/product/wordpress-plugins/avartan-slider/" target="_blank"><?php _e('Avartan Premium Slider Plugin', 'wp_blog_designer'); ?></a>
-                        </span>
-                        <span class="plugins_content">
-                            <?php _e('Avartan Slider is a great way to create stunning text, image, video and shortcode slider for your beautiful WordPress websites and give them wow factor.', 'wp_blog_designer'); ?>
-                        </span>
-                    </li>
-                </ul>
+                <h3><?php _e('Blog Designer PRO', 'wp_blog_designer'); ?></h3>
+                <div style="text-align: center;">
+                    <img src="http://blogdesigner.solwininfotech.com/wp-content/uploads/2016/02/cropped-blog_designer_pro-1.png" alt="<?php esc_attr_e( 'Blog Designer Pro','wp_blog_designer' ); ?>" />
+                </div>
+                <p class="pro-content"><?php _e("After succesful story of Blog Designer, we introduced one new step ahead with Blog Designer and it's - Blog Designer PRO. Blog Designer PRO comes with 15+ blog templates and will overcome your limit with lite version.",'wp_blog_designer') ?></p>
+                <div class="pre-book-pro">
+                    <a href="http://blogdesigner.solwininfotech.com/" target="_blank"><?php _e( 'LIVE DEMO','wp_blog_designer' ); ?></a>
+                </div>
             </div>
         </div>
     </div>

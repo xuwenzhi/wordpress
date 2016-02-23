@@ -16,6 +16,7 @@ Using Blog Designer plugin you can design your blog layout as per your choice to
 
 Blog Designer plugin is very easy to integrate using shortcodes.
 
+**Live Demo:** [blogdesigner.solwininfotech.com](http://blogdesigner.solwininfotech.com)
 
 **Shortcodes** : 
 [wp_blog_designer] - To display blog on page
@@ -33,12 +34,36 @@ Blog Designer plugin is very easy to integrate using shortcodes.
 > * Style your content with wide variety of options like text color, background color, font size, etc.
 > * Maintain post content length with summary text
 > * Manage your 'Read More' text
+> * Custom CSS support
 > * Square/Circle social share buttons integration
 > * Multilingual Translation Ready
 
-### Blog Designer Pro:
-Coming soon on our live site!
+### Blog Designer Pro Features:
+Pro version overcome your limitations with lite version of blog designer.
 
+> **Blog Designer PRO Plugin Features**
+>
+> * Custom Post type support
+> * 15+ Default Blog Templates
+> * Demo Install with Restore Default option
+> * Live Preview before create/modify shortcode
+> * Mulitple order by options
+> * 3 pagination type options including "Load More"
+> * Blog Post Template color avaialble for selected templates
+> * Mulitple social sharing button styles
+> * Social Share counts available with positions
+> * Pinterest Share button with featured image
+> * Single Post layout options
+> * Multiple Author Bio. design avaialble with Single Post Layout
+> * Related Posts with category and column selection
+> * Automatic Update on single click
+> * License key support
+> * Import/Export Layouts
+
+= Pro Version for only $29 =
+<a rel="nofollow" href="https://www.solwininfotech.com/product/wordpress-plugins/blog-designer-pro/">I want this plugin</a>
+
+= Technical Support =
 We're active for any support issues and feature suggestions. So hope you will love it. Please contact us at [support forum](http://wordpress.org/support/plugin/blog-designer) or [support.solwininfotech.com](http://support.solwininfotech.com)
 
 == Installation ==
@@ -49,7 +74,7 @@ We're active for any support issues and feature suggestions. So hope you will lo
 
 == Frequently asked questions ==
 = Is Blog designer provide some default blog layouts? =
-Yes, Blog designer provide 4 default layouts - Classical, Light Breeze, Spektrum and Evolution.
+Yes, Blog designer provide 4 default layouts - Classical, Light Breeze, Spektrum and Evolution. And in PRO version, there are 15+ blog templates available.
 
 = Can I apply this blog designer only for my hot categories? =
 Yes, there is one backend option available as you can select multiple categories and blog designer apply for that categories only.
@@ -66,6 +91,9 @@ Yes, There is "General Settings" panel where you can manage your post details as
 = Can I manage my "Read More" text on blog page? =
 Yes, you can change that text and decorate it also whatever you like.
 
+= What about custom post type support? =
+Custom Post type support only available with PRO version.
+
 == Screenshots ==
 
 1. Blog Designer admin interface 
@@ -75,6 +103,14 @@ Yes, you can change that text and decorate it also whatever you like.
 5. Blog Designer by 'Evolution Design' theme layout
 
 == Changelog ==
+= 1.6.3 =
+Release date: February 12th, 2016
+
+* Enhancement: Added custom css support
+* Enhancement: UI modification for easiness
+* Enhancement: Added Blog Designer logo icon
+* Enhancement: Added one click install with "Restore Default"
+
 = 1.6.2 =
 Release date: December 15th, 2015
 

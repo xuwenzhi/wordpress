@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Blog Designer\n"
-"POT-Creation-Date: 2015-12-11 11:39+0530\n"
-"PO-Revision-Date: 2015-12-11 11:41+0530\n"
+"POT-Creation-Date: 2016-02-12 16:50+0530\n"
+"PO-Revision-Date: 2016-02-12 16:50+0530\n"
 "Last-Translator: \n"
 "Language-Team: Solwininfotech <info@solwininfotech.com>\n"
 "Language: en_EN\n"
@@ -17,427 +17,620 @@ msgstr ""
 "X-Poedit-SearchPath-0: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/"
 "plugins/blog-designer\n"
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:34
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:42
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:83
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:8
 msgid "Blog Designer"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:35
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:43
 msgid "Blog designer Settings"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:35
-msgid "Settings"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:43
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1048
+msgid "Blog Designer Settings"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:329
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:44
+msgid "About Blog Designer"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:82
+msgid "If you like "
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:84
+msgid "please leave us a"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:86
+msgid "rating. A huge thank you from Solwin Infotech in advance!"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:430
 msgid "Invalid shortcode"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:424
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:428
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:530
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:658
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:747
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:531
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:535
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:637
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:765
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:854
 msgid "Posted by "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:424
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:531
 msgid " on "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:424
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:430
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:538
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:531
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:537
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:645
 msgid "F d, Y"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:430
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:537
 msgid "Posted on "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:443
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:550
 msgid "Category :"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:444
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:454
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:546
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:581
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:648
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:663
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:732
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:758
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:880
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:891
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:551
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:561
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:653
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:688
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:755
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:770
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:839
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:865
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:985
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:996
 msgid ", "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:446
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:553
 #, php-format
 msgid " %2$s"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:460
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:548
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:587
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:669
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:734
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:764
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:567
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:655
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:694
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:776
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:841
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:871
 #, php-format
 msgid "%2$s"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:475
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:570
-msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:479
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:574
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:684
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:586
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:681
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:791
 msgid "Read More"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:559
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:666
 msgid "No Comments"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:559
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:666
 msgid "1 Comment"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:559
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:666
 msgid "% Comments"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:633
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:743
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:849
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:677
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:740
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:850
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:955
 msgid "d"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:633
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:743
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:740
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:850
 msgid "F"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:650
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:882
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:757
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:987
 #, php-format
 msgid "Categories : %2$s"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:790
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:867
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:897
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:973
 msgid "Read more &raquo;"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:848
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:954
 msgid "M"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:897
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1002
 #, php-format
 msgid "Tags : %2$s"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:944
-msgid "Blog Designer Settings"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1051
+msgid "Designer setting restored successfully."
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:945
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1053
 msgid "Designer Settings updated."
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:961
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1084
 msgid "General Settings"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:965
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1091
 msgid "Blog Page Displays"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:967
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1093
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:967
-msgid "--Select Page--"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1093
+msgid "-- Select Page --"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:971
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1095
+msgid "Note:"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1097
+msgid ""
+"You are about to select the page for your layout, you will lost your page "
+"content. There is no undo. Think about it!"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1103
 msgid "Blog Pages Show at Most"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:973
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1105
 msgid "Posts"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:977
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1109
 msgid "Display Post Category "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:979
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:986
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:993
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1000
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1007
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1060
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1170
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1177
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1184
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1191
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1198
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1206
-msgid "Yes"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:980
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:987
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:994
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1001
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1008
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1061
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1171
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1178
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1185
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1192
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1199
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1207
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1113
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1124
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1135
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1146
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1157
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1233
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1398
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1409
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1420
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1431
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1442
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1454
 msgid "No"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:984
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1115
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1126
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1137
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1148
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1159
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1235
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1400
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1411
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1422
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1433
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1444
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1456
+msgid "Yes"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1120
 msgid "Display Post Tag "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:991
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1131
 msgid "Display Post Author "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:998
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1142
 msgid "Display Post Date "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1005
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1153
 msgid "Display Post Comment Count "
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1013
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1173
 msgid "Standard Settings"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1017
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1181
 msgid "Blog Post Categories"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1021
-msgid "-- Select Category --"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1033
-msgid "Blog Designs"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1036
-msgid "---select---"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1037
-msgid "Classical Desgin"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1038
-msgid "Light Breeze Design"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1039
-msgid "Spektrum Design"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1040
-msgid "Evolution Design"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1041
-msgid "Timeline Design"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1046
-msgid "Blog Posts Template Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1052
-msgid "Background Color for Blog Posts"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1058
-msgid "Alternative Background Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1065
-msgid "Choose Alternative Background Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1071
-msgid "Choose Link Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1078
-msgid "Title Settings"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1082
-msgid "Post Title Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1088
-msgid "Post Title Background Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1094
-msgid "Post Title Font Size"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1105
-msgid "Content Settings"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1109
-msgid "For each Article in a Feed, Show "
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1111
-msgid "Full Text"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1112
-msgid "Summary"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1116
-msgid "Post Content Length"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1122
-msgid "Post Content Font Size"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1132
-msgid "Post Content Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1138
-msgid "Read More Text"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1144
-msgid "Read More Text Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1150
-msgid "Read More Text Background Color"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1157
-msgid "Social Settings"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1161
-msgid "Shape of Social Icon"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1163
-msgid "Circle"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1164
-msgid "Square"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1168
-msgid "Facebook Share Link"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1175
-msgid "Twitter Share Link"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1182
-msgid "Google+ Share Link"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1189
-msgid "Linkedin Share Link"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1184
+msgid "Choose Post Categories"
 msgstr ""
 
 #: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1196
-msgid "Share Via Mail"
+msgid "Blog Designs"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1199
+msgid "-- Select Blog Template --"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1200
+msgid "Classical Template"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1201
+msgid "Light Breeze Template"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1202
+msgid "Spektrum Template"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1203
+msgid "Evolution Template"
 msgstr ""
 
 #: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1204
-msgid "Pinterest Share link"
+msgid "Timeline Template"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1216
-msgid "Save Changes"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1209
+msgid "Blog Posts Template Color"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1223
-msgid "Help to improve this plugin!"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1215
+msgid "Background Color for Blog Posts"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1224
-msgid "Enjoyed this plugin?"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1225
-msgid " You can help by"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1227
-msgid " rating this plugin on wordpress.org"
-msgstr ""
-
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1231
-msgid "Downloads:"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1221
+msgid "Alternative Background Color"
 msgstr ""
 
 #: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1240
-msgid "Need Support?"
+msgid "Choose Alternative Background Color"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1241
-msgid "Check out the"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1246
+msgid "Choose Link Color"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1242
-msgid "FAQs"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1252
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:37
+msgid "Custom CSS"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1243
-msgid "and"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1267
+msgid "Title Settings"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1244
-msgid "Support Forums"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1274
+msgid "Post Title Color"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1248
-msgid "Share & Follow Us"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1280
+msgid "Post Title Background Color"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1298
-msgid "Our Other Works"
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1286
+msgid "Post Title Font Size"
 msgstr ""
 
 #: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1305
-msgid "Avartan Premium Slider Plugin"
+msgid "Content Settings"
 msgstr ""
 
-#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1308
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1313
+msgid "For each Article in a Feed, Show "
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1320
+msgid "Summary"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1322
+msgid "Full Text"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1327
+msgid "Post Content Length"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1329
+msgid " Words"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1333
+msgid "Post Content Font Size"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1343
+msgid "Post Content Color"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1349
+msgid "Read More Text"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1355
+msgid "Read More Text Color"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1361
+msgid "Read More Text Background Color"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1376
+msgid "Social Settings"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1383
+msgid "Shape of Social Icon"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1387
+msgid "Square"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1389
+msgid "Circle"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1394
+msgid "Facebook Share Link"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1405
+msgid "Twitter Share Link"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1416
+msgid "Google+ Share Link"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1427
+msgid "Linkedin Share Link"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1438
+msgid "Share Via Mail"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1450
+msgid "Pinterest Share link"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1470
+msgid "Save Changes"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1471
+msgid "Restore Default"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1478
+msgid "Help to improve this plugin!"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1479
+msgid "Enjoyed this plugin?"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1480
+msgid " You can help by"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1482
+msgid " rating this plugin on wordpress.org"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1486
+msgid "Downloads:"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1495
+msgid "Need Support?"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1496
+msgid "Check out the"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1497
+msgid "FAQs"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1498
+msgid "and"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1499
+msgid "Support Forums"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1503
+msgid "Share & Follow Us"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1553
+msgid "Blog Designer PRO"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1555
+msgid "Blog Designer Pro"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1557
 msgid ""
-"Avartan Slider is a great way to create stunning text, image and video "
-"slider for your WordPress websites."
+"After succesful story of Blog Designer, we introduced one new step ahead "
+"with Blog Designer and it's - Blog Designer PRO. Blog Designer PRO comes "
+"with 15+ blog templates and will overcome your limit with lite version."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/blog-designer.php:1559
+msgid "LIVE DEMO"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:11
+msgid ""
+"Blog Designer is a step ahead wordpress plugin that allows you to modify "
+"blog and single page layouts and design."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:15
+msgid "PayPal Donation"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:19
+msgid "PayPal - The safer, easier way to pay online!"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:22
+msgid "Please donate to the development team of blog designer"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:25
+msgid "Feature Overview"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:28
+msgid "Fully Customizable Admin Interface"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:29
+msgid "Plugin will provide easy-to-use and user friendly admin interface."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:32
+msgid "Multiple Browser Compatibility"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:33
+msgid ""
+"Plugin is compatibility with multiple web browsers like Firefox, Chrome, "
+"Safari, Opera."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:39
+msgid "Support of custom css to override the style of template."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:43
+msgid "Show/Hide post meta fields"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:45
+msgid "Manage post meta of post using show/hide option."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:49
+msgid "Multilingual Translation Ready"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:51
+msgid "Blog Designer is ready to use with any language."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:55
+msgid "15+ Different and Unique Blog Templates"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:55
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:61
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:67
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:73
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:79
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:85
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:91
+msgid " Pro "
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:57
+msgid ""
+"Plugin will offer 15+ different and unique blog template to make your blog "
+"page more attractive."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:61
+msgid "Import & Export Layout"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:63
+msgid "User can easily import layout and export layout setting."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:67
+msgid "Duplicate Layout"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:69
+msgid "Plugin will offer to easily duplicate the layout settings."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:73
+msgid "Support of Single Post Design"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:75
+msgid ""
+"User can change single post design with 15+ different and unique template."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:79
+msgid "Live Preview"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:81
+msgid ""
+"User can preview each and every layout at the time of creation and "
+"modification."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:85
+msgid "Template with Two, Three and Four Columns"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:87
+msgid "Plugin provide option to select column for blog design."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:91
+msgid "Pagination with load more"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:93
+msgid "Choose pagination type to show next page."
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:97
+msgid "View All Features"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:103
+msgid "Our Other Products"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:106
+msgid "Plugins"
+msgstr ""
+
+#: /opt/lampp/htdocs/gaurangsvn/wp-plugins/wp-content/plugins/blog-designer/includes/about_us.php:107
+msgid "Themes"
 msgstr ""
