@@ -148,3 +148,4 @@ function ample_theme_options() {
       esc_url('http://themegrill.com/contact/')
    );
 }
+
