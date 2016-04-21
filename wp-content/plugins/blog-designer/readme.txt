@@ -2,7 +2,7 @@
 Contributors: solwininfotech
 Tags: blog design, blog layout, blog template, custom blog template, blog layout design, custom blog layout, modify blog design, blog, design, site design, posts in page, blog in page, timeline blog template, classical blog template, light breeze blog template, spektrum blog template, evolution blog template
 Requires at least: 4.0
-Tested up to: 4.4
+Tested up to: 4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,7 +83,7 @@ Yes, there is one backend option available as you can select multiple categories
 Yes, Blog designer providing option as you can show social share on blog page with 2 different shape options.
 
 = Can I control my content length on blog page? =
-Yes, you can. "Post Cotnent Length" option will give you ability to control your content characters on blog page.
+Yes, you can. "Post Content Length" option will give you ability to control your content characters on blog page.
 
 = I want to hide post details like post author, post date, etc., Can I? =
 Yes, There is "General Settings" panel where you can manage your post details as you want to show or not.
@@ -103,6 +103,12 @@ Custom Post type support only available with PRO version.
 5. Blog Designer by 'Evolution Design' theme layout
 
 == Changelog ==
+= 1.6.4 =
+Release date: April 16th, 2016
+
+* Bug Fix: Setting not saved sometimes
+* Enhancement: Make compatible with WordPress 4.5
+
 = 1.6.3 =
 Release date: February 12th, 2016
 

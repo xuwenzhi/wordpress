@@ -340,7 +340,7 @@ jQuery('.bd-form-class .hndle,.bd-form-class .handlediv ').click(function (event
     jQuery.post(ajaxurl, {
         action: 'bd_closed_bdboxes',
         closed: closed,
-        page: jQuery('.bdporiginalpage').val()
+        page: 'designer_settings'
     });
 });
 

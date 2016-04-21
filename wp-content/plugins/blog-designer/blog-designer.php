@@ -6,9 +6,9 @@
   Author: Solwin Infotech
   Author URI: http://www.solwininfotech.com/
   Copyright: Solwin Infotech
-  Version: 1.6.3
+  Version: 1.6.4
   Requires at least: 4.0
-  Tested up to: 4.4
+  Tested up to: 4.5
   License: GPLv2 or later
  */
 if (!defined('ABSPATH'))
@@ -16,8 +16,9 @@ if (!defined('ABSPATH'))
 define('BLOGDESIGNER_URL', plugins_url() . '/blog-designer');
 register_activation_hook(__FILE__,'wp_blog_designer_plugin_activate');
 add_action('admin_menu', 'wp_blog_designer_add_menu');
-add_action('admin_init', 'wp_blog_designer_reg_function');
-add_action('admin_init', 'wp_blog_designer_admin_stylesheet');
+add_action('admin_init', 'wp_blog_designer_reg_function',5);
+add_action('admin_init', 'wp_blog_designer_admin_stylesheet',7);
+add_action('admin_init', 'wp_blog_designer_save_settings',10);
 add_action('init', 'wp_blog_designer_front_stylesheet');
 add_action('admin_init', 'wp_blog_designer_admin_scripts');
 add_action('init', 'wp_blog_designer_stylesheet', 20);
@@ -79,8 +80,9 @@ function wp_blog_designer_plugin_activate(){
 add_action( 'current_screen', 'bd_footer' );
 function bd_footer() {
     if( isset($_GET['page']) && ($_GET['page'] == 'designer_settings' || $_GET['page'] == 'about_blog_designer') ){
-        add_filter('admin_footer_text', 'bd_remove_footer_admin');
+        add_filter('admin_footer_text', 'bd_remove_footer_admin',11);
         function bd_remove_footer_admin () {
+            ob_start();
         ?>
             <p id="footer-left" class="alignleft">
             <?php _e( 'If you like ','wp_blog_designer' ); ?>
@@ -90,10 +92,10 @@ function bd_footer() {
             <?php _e( 'rating. A huge thank you from Solwin Infotech in advance!','wp_blog_designer'); ?>
             </p>
         <?php
+            return ob_get_clean();
         }
     }
 }
-
 /**
  * Ajax handler for Store closed box id
  */
@@ -139,7 +141,7 @@ if (!function_exists('bdp_postbox_classes')) {
  * 
  * @return Set default value
  */
-function wp_blog_designer_reg_function() {    
+function wp_blog_designer_reg_function() {
     $settings = get_option("wp_blog_designer_settings");
     if (empty($settings)) {
         $settings = array(
@@ -156,6 +158,7 @@ function wp_blog_designer_reg_function() {
             'template_titlebackcolor' => '#ffffff',
         );
         update_option("display_category", '0');
+        update_option("social_icon_style", '0');
         update_option("rss_use_excerpt", '1');
         update_option("template_alternativebackground", '1');
         update_option("display_tag", '0');
@@ -176,66 +179,88 @@ function wp_blog_designer_reg_function() {
     }
 }
 
-if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'save' && isset($_REQUEST['updated']) && $_REQUEST['updated'] === 'true') {
-    update_option("blog_page_display", $_POST['blog_page_display']);
-    update_option("posts_per_page", $_POST['posts_per_page']);
-    update_option("rss_use_excerpt", $_POST['rss_use_excerpt']);
-    update_option("display_date", $_POST['display_date']);
-    update_option("display_author", $_POST['display_author']);
-    update_option("display_category", $_POST['display_category']);
-    update_option("display_tag", $_POST['display_tag']);
-    update_option("excerpt_length", $_POST['txtExcerptlength']);
-    update_option("read_more_text", $_POST['txtReadmoretext']);
-
-    if (isset($_POST['template_alternativebackground'])){
-        update_option("template_alternativebackground", $_POST['template_alternativebackground']);
-    }
+function wp_blog_designer_save_settings(){
     
-    if (isset($_POST['social_icon_style'])) {
-        update_option("social_icon_style", $_POST['social_icon_style']);
-    }
-    if (isset($_POST['facebook_link'])) {
-        update_option("facebook_link", $_POST['facebook_link']);
-    }
-    if (isset($_POST['twitter_link'])) {
-        update_option("twitter_link", $_POST['twitter_link']);
-    }
-    if (isset($_POST['google_link'])) {
-        update_option("google_link", $_POST['google_link']);
-    }
-    if (isset($_POST['dribble_link'])) {
-        update_option("dribble_link", $_POST['dribble_link']);
-    }
-    if (isset($_POST['pinterest_link'])) {
-        update_option("pinterest_link", $_POST['pinterest_link']);
-    }
-    if (isset($_POST['instagram_link'])) {
-        update_option("instagram_link", $_POST['instagram_link']);
-    }
-    if (isset($_POST['linkedin_link'])) {
-        update_option("linkedin_link", $_POST['linkedin_link']);
-    }
-    if (isset($_POST['display_comment_count'])) {
-        update_option("display_comment_count", $_POST['display_comment_count']);
-    }
-    if (isset($_POST['template_titlefontsize'])) {
-        update_option("template_titlefontsize", $_POST['template_titlefontsize']);
-    }
-    if (isset($_POST['content_fontsize'])) {
-        update_option("content_fontsize", $_POST['content_fontsize']);
-    }
-    if (isset($_POST['custom_css'])) {
-        update_option("custom_css", stripslashes($_POST['custom_css']));
-    }
+    if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'save' && isset($_REQUEST['updated']) && $_REQUEST['updated'] === 'true') {
+        
+        if(isset($_POST['blog_page_display'])) {
+            update_option("blog_page_display", $_POST['blog_page_display']);
+        }
+        if(isset($_POST['posts_per_page'])) {
+            update_option("posts_per_page", $_POST['posts_per_page']);
+        }
+        if(isset($_POST['rss_use_excerpt'])) {
+            update_option("rss_use_excerpt", $_POST['rss_use_excerpt']);
+        }
+        if(isset($_POST['display_date'])) {
+            update_option("display_date", $_POST['display_date']);
+        }
+        if(isset($_POST['display_author'])) {
+            update_option("display_author", $_POST['display_author']);
+        }
+        if(isset($_POST['display_category'])) {
+            update_option("display_category", $_POST['display_category']);
+        }
+        if(isset($_POST['display_tag'])) {
+            update_option("display_tag", $_POST['display_tag']);
+        }
+        if(isset($_POST['excerpt_length'])) {
+            update_option("excerpt_length", $_POST['txtExcerptlength']);
+        }
+        if(isset($_POST['read_more_text'])) {
+            update_option("read_more_text", $_POST['txtReadmoretext']);
+        }
 
-    $templates = array();
-    $templates['ID'] = $_POST['blog_page_display'];
-    $templates['post_content'] = '[wp_blog_designer]';
-    wp_update_post($templates);
+        if (isset($_POST['template_alternativebackground'])){
+            update_option("template_alternativebackground", $_POST['template_alternativebackground']);
+        }
 
-    $settings = $_POST;
-    $settings = is_array($settings) ? $settings : unserialize($settings);
-    $updated = update_option("wp_blog_designer_settings", $settings);
+        if (isset($_POST['social_icon_style'])) {
+            update_option("social_icon_style", $_POST['social_icon_style']);
+        }
+        if (isset($_POST['facebook_link'])) {
+            update_option("facebook_link", $_POST['facebook_link']);
+        }
+        if (isset($_POST['twitter_link'])) {
+            update_option("twitter_link", $_POST['twitter_link']);
+        }
+        if (isset($_POST['google_link'])) {
+            update_option("google_link", $_POST['google_link']);
+        }
+        if (isset($_POST['dribble_link'])) {
+            update_option("dribble_link", $_POST['dribble_link']);
+        }
+        if (isset($_POST['pinterest_link'])) {
+            update_option("pinterest_link", $_POST['pinterest_link']);
+        }
+        if (isset($_POST['instagram_link'])) {
+            update_option("instagram_link", $_POST['instagram_link']);
+        }
+        if (isset($_POST['linkedin_link'])) {
+            update_option("linkedin_link", $_POST['linkedin_link']);
+        }
+        if (isset($_POST['display_comment_count'])) {
+            update_option("display_comment_count", $_POST['display_comment_count']);
+        }
+        if (isset($_POST['template_titlefontsize'])) {
+            update_option("template_titlefontsize", $_POST['template_titlefontsize']);
+        }
+        if (isset($_POST['content_fontsize'])) {
+            update_option("content_fontsize", $_POST['content_fontsize']);
+        }
+        if (isset($_POST['custom_css'])) {
+            update_option("custom_css", stripslashes($_POST['custom_css']));
+        }
+
+        $templates = array();
+        $templates['ID'] = $_POST['blog_page_display'];
+        $templates['post_content'] = '[wp_blog_designer]';
+        wp_update_post($templates);
+
+        $settings = $_POST;
+        $settings = is_array($settings) ? $settings : unserialize($settings);
+        $updated = update_option("wp_blog_designer_settings", $settings);
+    }
 }
 
 /**
@@ -425,7 +450,8 @@ function wp_blog_designer_excerpt_length($length) {
  * @return type
  */
 function wp_blog_designer_views() {
-
+    ob_start();
+    add_filter( 'excerpt_more', 'bd_remove_continue_reading',50 );
     $settings = get_option("wp_blog_designer_settings");
     if (!isset($settings['template_name']) || empty($settings['template_name'])) {
         return '[wp_blog_designer] ' . __('Invalid shortcode', 'wp_blog_designer') . '';
@@ -510,6 +536,8 @@ function wp_blog_designer_views() {
     designer_pagination();
     echo '</div>';
     wp_reset_query();
+    $content = ob_get_clean();
+    return $content;
 }
 
 /**
@@ -2027,4 +2055,9 @@ if (!function_exists('wp_ajax_bd_close_tab')) {
 
 }
 add_action('wp_ajax_close_tab', 'wp_ajax_bd_close_tab');
-?>
+
+if(!function_exists('bd_remove_continue_reading')) {
+    function bd_remove_continue_reading( $more ) {
+        return '';
+    }
+}

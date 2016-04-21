@@ -494,8 +494,8 @@ span.category-link a{
 .wl_pagination_box.spektrum .wl_pagination a {
     display: inline-block;
     padding: 2px 10px;
-    text-decoration: none;
-    margin-right: 0px;
+    text-decoration: none;    
+    margin-right: 5px;
 }
 
 /******************************** evolution style ************************************/
