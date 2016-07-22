@@ -7726,8 +7726,7 @@ msgstr "最后更新：%s"
 
 #: wp-includes/bookmark-template.php:206
 msgid "Bookmarks"
-msgstr "友情链接"
-
+msgstr "书签"
 
 #: wp-includes/class-wp-user.php:715
 msgid "Usage of user levels by plugins and themes is deprecated. Use roles and capabilities instead."
