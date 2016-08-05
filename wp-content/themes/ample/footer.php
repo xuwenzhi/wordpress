@@ -31,5 +31,15 @@
       <a href="#masthead" id="scroll-up"><i class="fa fa-angle-up"></i></a>
    </div><!-- #page -->
    <?php wp_footer(); ?>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e5ad3219512e537cb3912d46b98f83bd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 </body>
 </html>
